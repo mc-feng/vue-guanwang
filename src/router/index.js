@@ -9,6 +9,7 @@ import pcPage from "@/page/pcPage"
 import mPage from "@/page/mPage"
 import product from "@/page/product"
 import loge from "@/components/productComponents/loge"
+import report from "@/components/productComponents/report"
 Vue.use(Router)
 
 export default new Router({
@@ -61,6 +62,11 @@ export default new Router({
           path:'loge',
           name:"loge",
           component: loge,
+        },
+        {
+          path:'report/:name',
+          name:"report",
+          component: report,
         },
         {
           path:'/', redirect: 'loge'

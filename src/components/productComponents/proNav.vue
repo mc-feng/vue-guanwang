@@ -64,7 +64,11 @@ export default {
             location.reload()
         },
         selectNav(name){
-          this.active = name
+            console.log(name)
+            this.$router.push({
+                path: `/report/${name}`,
+            })
+            this.active = name
         }
     }
 }

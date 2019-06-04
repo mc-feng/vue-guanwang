@@ -10,7 +10,7 @@
                                 <Input v-model="formTop.input1"></Input>
                             </Form-item>
                             <Form-item>
-                                <Input v-model="formTop.input2"></Input>
+                                <Input v-model="formTop.input2" placeholder="请输入验证码"></Input>
                             </Form-item>
                             <Form-item>
                                 <Button type="primary" long>登录</Button>
