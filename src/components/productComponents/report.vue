@@ -3,7 +3,7 @@
         <div class="warp">
            <header class="title">{{name}}</header>
            <Upload 
-             action="//jsonplaceholder.typicode.com/posts/"
+             action="http://www.yijinhealth.com:8083/upimage/updatePhysicalReport"
              ref="upload"
             :show-upload-list="false"
             :default-file-list="defaultList"
@@ -224,6 +224,7 @@
 </style>
 <script>
 import { Upload,Button, Select,Icon,Progress,Modal} from 'iview';
+import bus from "../../comment/bus";
 export default {
     data(){
         return{
@@ -243,7 +244,7 @@ export default {
             imgName: 'a42bdcc1178e62b4694c830f028db5c0',
             visible: true,
             uploadList: ["",""],
-            name:this.$route.params.name
+            name:"病理报告单"
         }
     },
     components:{
@@ -267,10 +268,11 @@ export default {
             this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
         },
         handleSuccess (res, file) {
+            console.log(file)
             // 因为上传过程为实例，这里模拟添加 url
-            file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
-            file.name = '7eb99afb9d5f317c912f08b5212fd69a';
-            this.uploadList.push(file)
+            file.url = `http://www.yijinhealth.com:8083/${res.result}`;
+            file.name = res.result;
+            console.log(this.uploadList)
         },
         handleFormatError (file) {
             this.$Notice.warning({
@@ -306,10 +308,10 @@ export default {
     mounted () {
         console.log(this.$refs.upload.fileList)
         this.uploadList = this.$refs.upload.fileList;
-    },
-    created(){
-        console.log(this.$route.params.name)
-        this.name = this.$route.params.name
+        var that = this
+        bus.$on('id-selected', function (id) {
+          that.name = id
+        })
     }
 }
 </script>

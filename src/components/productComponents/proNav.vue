@@ -1,7 +1,7 @@
 <template>
     <div class="pro-nav" :style="background">
         <div class="warp">
-            <img src="../../assets/logo.png" alt="loge" @click="select()">
+            <img src="../../assets/logo.png" alt="loge" @click="select()" class="warp-image">
             <div class="tiyan">产品体验中心</div>
             <div class="nav-warp">
                 <div class="nav-item"  @click="selectNav('化验单识别')" :class="{active : active == '化验单识别'}">化验单识别</div>
@@ -19,6 +19,9 @@
       margin:0 auto;
       display: flex;
       align-items: center;
+  }
+  .warp-image{
+      cursor: pointer;
   }
   .tiyan{
       font-family: PingFangSC-Medium;
@@ -46,6 +49,7 @@
   }
 </style>
 <script>
+import bus from "../../comment/bus"
 export default {
     props:{
         'background':{
@@ -55,7 +59,7 @@ export default {
     },
     data(){
         return{
-            active:"化验单识别"
+            active:""
         }
     },
     methods:{
@@ -65,11 +69,16 @@ export default {
         },
         selectNav(name){
             console.log(name)
+            bus.$emit('id-selected', name)
+            // DOM 现在更新了
             this.$router.push({
-                path: `/report/${name}`,
+                path: `/product/report`,
             })
             this.active = name
         }
+    },
+    beforeDestroy () {
+            bus.$off('id-selected')
     }
 }
 </script>
