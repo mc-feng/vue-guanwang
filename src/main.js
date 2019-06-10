@@ -7,6 +7,8 @@ import 'lib-flexible'
 import WXConfig from "./assets/js/wx.jsapi.js"
 import VueI18n from 'vue-i18n' 
 import 'iview/dist/styles/iview.css';
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
 Vue.use(VueI18n) 
 const i18n = new VueI18n({ 
  locale: 'zh', // 语言标识 
@@ -25,3 +27,4 @@ new Vue({
   i18n,
   template: '<App/>'
 })
+Vue.use(Viewer)

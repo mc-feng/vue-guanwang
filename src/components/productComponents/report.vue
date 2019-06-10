@@ -3,7 +3,7 @@
         <div class="warp">
            <header class="title">{{name}}</header>
            <Upload 
-             action="http://www.yijinhealth.com:8083/upimage/updatePhysicalReport"
+             action="http://www.yijinhealth.com:8083/upimage/uploadALiYunHuaYanData"
              ref="upload"
             :show-upload-list="false"
             :default-file-list="defaultList"
@@ -22,7 +22,12 @@
                 <div class="content-left">
                     <div class="left-title">原始图片</div>
                     <div class="bg">
-                        <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width:630px;height: 430px">
+                        <div v-viewer class="image">
+                          <img :src="'http://www.yijinhealth.com:8083/' + imgName" v-if="visible" style="width:630px;height: 430px" @click="add()">
+                        </div>
+                        <!-- <div v-viewer="{movable: false}" class="image">
+                          <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width:630px;height: 430px" @click="add()">
+                        </div> -->
                         <div class="top-left"></div>
                         <div class="top-right"></div>
                         <div class="bottom-left"></div>
@@ -44,10 +49,19 @@
                 </div>
                 <div class="content-right">
                     <div class="tab-groub">
-                        <div :class="{active:(indexs==index)}" v-for="(item,index) in tab" @click="slecet(index)" :key="index">{{item}}</div>
+                        <div :class="{active:(select==item)}" v-for="(item,index) in tab" @click="slecet(item)" :key="index">{{item}}</div>
                     </div>
                     <div class="main-warp">
-                         <div v-for="(item,index) in box" v-show="indexs == index" :key="index">{{item}}</div>
+                        <div v-show="select=='识别结果'">
+                           <div v-for="(item,index) in result" :key="index">
+                               <div class="main-header">{{item.physicalTyep}}</div>
+                               <div v-for="child,indexs in item.dealDate" :key="indexs" class="main-content">
+                                   <div class="content1">{{child.name}}</div>
+                                   <div class="content2">{{child.result}}</div>
+                                </div>
+                           </div>
+                        </div>
+                        <div v-show="select=='高精度识别'">高精度识别</div>
                     </div>
                 </div>
             </div>
@@ -184,6 +198,33 @@
     background: #1E80EE;
     color: #FFFFFF
  }
+ .main-header{
+     height: 50px;
+     width: 100%;
+     background: #F1F2F5;
+     line-height: 50px;
+     font-size: 16px;
+     color: #000000;
+     text-indent: 25px;
+ }
+ .main-content{
+     min-height: 35px;
+     border-bottom: 1px solid #D8D8D8;
+     display: flex;
+     width: 100%;
+     line-height: 35px;
+     font-size: 16px;
+     color: #444444;
+ }
+ .content1{
+     width: 30%;
+     border-right: 1px solid #D8D8D8;
+     padding-left: 25px;
+ }
+ .content2{
+     width: 70%;
+     text-indent: 40px;
+ }
  /* 图片展示框 */
  .demo-upload-list{
     display: inline-block;
@@ -231,6 +272,7 @@ export default {
             tab:["识别结果","高精度识别"],
             box:["内容一","内容二"],
             indexs:0,
+            select:"识别结果",
             defaultList: [
                 {
                     'name': 'a42bdcc1178e62b4694c830f028db5c0',
@@ -244,7 +286,8 @@ export default {
             imgName: 'a42bdcc1178e62b4694c830f028db5c0',
             visible: true,
             uploadList: ["",""],
-            name:"病理报告单"
+            name:"病理报告单",
+            result:[]
         }
     },
     components:{
@@ -256,7 +299,7 @@ export default {
     },
     methods:{
         slecet(e){
-          this.indexs = e
+          this.select = e
         },
         handleView (name) {
             this.imgName = name;
@@ -270,8 +313,10 @@ export default {
         handleSuccess (res, file) {
             console.log(file)
             // 因为上传过程为实例，这里模拟添加 url
-            file.url = `http://www.yijinhealth.com:8083/${res.result}`;
-            file.name = res.result;
+            file.url = `http://www.yijinhealth.com:8083/${res.result.photoNames}`;
+            file.name = res.result.photoNames;
+            var arr = res.result.physicalList
+            this.result = arr
             console.log(this.uploadList)
         },
         handleFormatError (file) {
@@ -303,6 +348,13 @@ export default {
                 }
            this.uploadList.push(newfile)
             console.log(this.uploadList)
+        },
+        add(){
+            const viewer = this.$el.querySelector('.images')
+            if ((viewer !== null) && viewer.hasOwnProperty('$viewer')) {
+                // handle property xxx of documentFragment as required
+               viewer.$viewer.show()
+            }
         }
     },
     mounted () {
