@@ -264,7 +264,7 @@
 }
 </style>
 <script>
-import { Upload,Button, Select,Icon,Progress,Modal} from 'iview';
+import { Upload,Button, Select,Icon,Progress,Modal,Notice} from 'iview';
 import bus from "../../comment/bus";
 export default {
     data(){
@@ -320,13 +320,13 @@ export default {
             console.log(this.uploadList)
         },
         handleFormatError (file) {
-            this.$Notice.warning({
+            Notice.warning({
                 title: '文件格式不正确',
                 desc: '文件 ' + file.name + ' 格式不正确，请上传 jpg 或 png 格式的图片。'
             });
         },
         handleMaxSize (file) {
-            this.$Notice.warning({
+            Notice.warning({
                 title: '超出文件大小限制',
                 desc: '文件 ' + file.name + ' 太大，不能超过 2M。'
             });
@@ -334,7 +334,7 @@ export default {
         handleBeforeUpload () {
             const check = this.uploadList.length < 5;
             if (!check) {
-                this.$Notice.warning({
+                Notice.warning({
                     title: '最多只能上传 5 张图片。'
                 });
             }
