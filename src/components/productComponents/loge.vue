@@ -27,6 +27,7 @@
                             </Form-item>
                             <Form-item label="验证码" prop="yanzhen">
                                 <Input v-model="formTop2.yanzhen" placeholder="请输入验证码"></Input>
+                                <Button type="info" class="yanzhenB" :disabled="disabled" @click="sendcode">{{btntxt}}</Button>
                             </Form-item>
                             <Form-item>
                                 <Button type="primary" long @click="handleSubmit('formTop2')">登录</Button>
@@ -139,6 +140,15 @@
     text-align: center;
     cursor: pointer;
   }
+  .ivu-form-item-content .yanzhenB{
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 30px;
+      border: none;
+      background: #fff;
+      color: #2db7f5;
+  }
 </style>
 <script>
 import { TabPane,Tabs,Form,FormItem,Input,Button,Message} from 'iview';
@@ -212,7 +222,10 @@ export default {
               ]
             },//注册信息验证
             yanzhen:false, // 验证吗切换
-            hidde:false   // 高度大小切换
+            hidde:false,   // 高度大小切换
+            btntxt:"获取验证码",
+            disabled:false,
+            time:0,
         }
     },
     components:{
@@ -256,6 +269,27 @@ export default {
                     }
                 })
         },
+        sendcode:function(){
+            // if(this.formTop2.phone==''){
+            //     alert("请输入手机号码");
+            //     return;
+            // }
+            this.time=35;
+            this.disabled=true;
+            this.timer();
+        },//多少秒以后可以重新发送
+         timer:function () {
+             if (this.time > 0) {
+                 this.time--;
+//                 console.log(this.time);
+                 this.btntxt=this.time+"s,后重新获取验证码";
+                 setTimeout(this.timer, 1000);
+             } else{
+                 this.time=0;
+                 this.btntxt="获取验证码";
+                 this.disabled=false;
+             }
+         }//设置定时
     }
 }
 </script>
