@@ -6,16 +6,6 @@
                 <Tab-pane label="登录" name="name1">
                     <div class="label-warp" v-if="yanzhen">
                         <Form>
-                            <!-- <Form-item label="账号" prop="auccont">
-                                <Input v-model="formTop.auccont" placeholder="请输入账号"></Input>
-                            </Form-item>
-                            <Form-item label="密码" prop="password">
-                                <Input v-model="formTop.password" placeholder="请输入密码"></Input>
-                            </Form-item>
-                            <Form-item>
-                                <Button type="primary" long @click="handleSubmit('formTop')">登录</Button>
-                            </Form-item>
-                            <div class="yanzhen" @click="qiehuan()">验证码登录</div> -->
                         </Form>
                         <Form label-position="top" ref='formTop' :model='formTop' :rules="ruleValidate">
                             <Form-item label='账号' prop="auccont">
@@ -152,11 +142,13 @@
 </style>
 <script>
 import { TabPane,Tabs,Form,FormItem,Input,Button,Message} from 'iview';
+import {registerAccount} from "../../api/api";
+import {store} from "../../comment/store";
 export default {
     data(){
         const validateAuccont =(rule,value,callback)=>{
             if (value === '') {
-                    callback(new Error('请输入账号'));
+                callback(new Error('请输入账号'));
             }else if(value === "123"){
                 callback(new Error('账号错误'))
             }else{
@@ -165,7 +157,7 @@ export default {
         }
         const validatePass =(rule,value,callback)=>{
             if (value === '') {
-                    callback(new Error('请输入密码'));
+                callback(new Error('请输入密码'));
             }else{
                 callback()
             }
@@ -193,7 +185,7 @@ export default {
               password:[
                   { validator:validatePass, trigger:'blur',message: '密码不能为空'}
               ]
-            },
+            },//账号密码验证
             ruleValidate1:{
               phone:[
                   { validator:validateAuccont, message: '手机不能为空', trigger: 'blur' },
@@ -201,7 +193,7 @@ export default {
               yanzhen:[
                   { validator:validatePass, trigger:'blur',message: '验证码不能为空'}
               ]
-            },
+            },//手机验证码验证
             ruleValidate2:{
               zphone:[
                   { validator:validateAuccont, message: '手机号不能为空', trigger: 'blur' },
@@ -218,7 +210,7 @@ export default {
               zcpassword:[
                   { validator:validatePass, trigger:'blur',message: '请确定密码'}
               ]
-            },
+            },//注册信息验证
             yanzhen:false, // 验证吗切换
             hidde:false   // 高度大小切换
         }
@@ -247,7 +239,18 @@ export default {
                 this.$refs[name].validate((valid) => {
                     console.log(valid)
                     if (valid) {
+                        if(name =="formTop"){ 
+                            registerAccount({
+                                account:this.formTop.auccont,
+                                password:this.formTop.password
+                            }).then(response => {
+                                console.log(response);
+                            }).catch(error => {
+                                console.log(error)
+                            })
+                        }
                         Message.success('Success!');
+                        store.setMessageAction(true)
                     } else {
                         Message.error('Fail!');
                     }

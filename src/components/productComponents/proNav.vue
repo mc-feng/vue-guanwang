@@ -50,6 +50,8 @@
 </style>
 <script>
 import bus from "../../comment/bus"
+import {store} from "../../comment/store";
+import {Modal} from 'iview'
 export default {
     props:{
         'background':{
@@ -69,12 +71,20 @@ export default {
         },
         selectNav(name){
             console.log(name)
-            bus.$emit('id-selected', name)
-            // DOM 现在更新了
-            this.$router.push({
-                path: `/product/report`,
-            })
-            this.active = name
+            if(store.state.click){  
+                bus.$emit('id-selected', name)
+                // DOM 现在更新了
+                this.$router.push({
+                    path: `/product/report`,
+                })
+                this.active = name
+            }else{
+               Modal.error(
+                {
+                    title:"消息提示",
+                    content: "请登录后在点击"
+                })
+            }
         }
     },
     beforeDestroy () {
