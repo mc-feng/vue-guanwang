@@ -44,15 +44,16 @@
                             </Form-item>
                             <Form-item prop="zyanzhen">
                                 <Input v-model="formTop3.zyanzhen" placeholder="请输入验证码"></Input>
+                                <Button type="info" class="yanzhenB" :disabled="disabled2" @click="sendcode2">{{btntxt2}}</Button>
                             </Form-item>
                             <Form-item prop="zaccunton">
                                 <Input v-model="formTop3.zaccunton" placeholder="请输入账号"></Input>
                             </Form-item>
                             <Form-item prop="zpassword">
-                                <Input v-model="formTop3.zpassword" placeholder="请输入密码"></Input>
+                                <Input v-model="formTop3.zpassword" placeholder="请输入密码" type="password"></Input>
                             </Form-item>
                             <Form-item prop="zcpassword">
-                                <Input v-model="formTop3.zcpassword" placeholder="再次输入密码"></Input>
+                                <Input v-model="formTop3.zcpassword" placeholder="再次输入密码" type="password"></Input>
                             </Form-item>
                             <Form-item>
                                 <Button type="primary" long @click="handleSubmit('formTop3')">注册</Button>
@@ -152,7 +153,7 @@
 </style>
 <script>
 import { TabPane,Tabs,Form,FormItem,Input,Button,Message} from 'iview';
-import {registerAccount} from "../../api/api";
+import {registerAccount,getPhoneCode,checkPhoneUsed,checkAccount,loginPhone,loginAccount} from "../../api/api";
 import {store} from "../../comment/store";
 export default {
     data(){
@@ -172,6 +173,63 @@ export default {
                 callback()
             }
         }
+        const validatePassCheck =(rule,value,callback)=>{
+            if (value === '') {
+                callback(new Error('请再次输入密码'));
+            }else if (value !== this.formTop3.zpassword) {
+                return callback(new Error('两次密码不一致'));
+            } else {
+                callback();
+            }
+        }
+        const checkPhone =(rule,value,callback)=>{
+               if (value === '') {
+                  callback(new Error('请输入手机号'));
+                }else if(!/^[1]([3-9])[0-9]{9}$/.test(value)){
+                    callback(new Error('手机号码错误'))
+                }else{
+                   checkPhoneUsed({
+                       phone:value
+                   }).then(response=>{
+                       if(response.data.success){
+                           callback()
+                       }else{
+                           callback(new Error('手机号码已存在'))
+                       }
+                       console.log(response)
+                   }).catch(error=>{
+                       console.log(error)
+                   })
+                }
+        }//验证手机号码是否存在
+        const checkAccounts =(rule,value,callback)=>{
+            if (value === '') {
+                  callback(new Error('请输入用户名'));
+            }else{
+                console.log("准备检查")
+                checkAccount({
+                    Account:value
+                }).then(response=>{
+                    if(response.data.success){
+                        callback()
+                    }else{
+                        callback(new Error('用户名已存在'))
+                    }
+                    console.log(response)
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }
+        }//验证用户名是否存在
+        const checkPhoneD =(rule,value,callback)=>{
+            if (value === '') {
+                callback(new Error('请输入手机号'));
+            }else if(!/^[1]([3-9])[0-9]{9}$/.test(value)){
+                callback(new Error('手机号码格式错误'))
+            }else{
+                 callback()
+            }
+        }//检验手机号码格式
         return{
             formTop:{
                 auccont: '',
@@ -198,7 +256,7 @@ export default {
             },//账号密码验证
             ruleValidate1:{
               phone:[
-                  { validator:validateAuccont, message: '手机不能为空', trigger: 'blur' },
+                  { validator:checkPhoneD,trigger: 'blur' },
               ],
               yanzhen:[
                   { validator:validatePass, trigger:'blur',message: '验证码不能为空'}
@@ -206,19 +264,19 @@ export default {
             },//手机验证码验证
             ruleValidate2:{
               zphone:[
-                  { validator:validateAuccont, message: '手机号不能为空', trigger: 'blur' },
+                  { validator:checkPhone, trigger: 'blur'},
               ],
               zyanzhen:[
-                  { validator:validatePass, trigger:'blur',message: '验证码不能为空'}
+                  {validator:validatePass,trigger:'blur',message: '验证码不能为空'}
               ],
               zaccunton:[
-                  { validator:validatePass, trigger:'blur',message: '账号不能为空'}
+                  { validator:checkAccounts, trigger:'blur'}
               ],
               zpassword:[
                   { validator:validatePass, trigger:'blur',message: '密码不能为空'}
               ],
               zcpassword:[
-                  { validator:validatePass, trigger:'blur',message: '请确定密码'}
+                  { validator:validatePassCheck, trigger:'blur'}
               ]
             },//注册信息验证
             yanzhen:false, // 验证吗切换
@@ -226,6 +284,9 @@ export default {
             btntxt:"获取验证码",
             disabled:false,
             time:0,
+            btntxt2:"获取验证码",
+            disabled2:false,
+            time2:0,
         }
     },
     components:{
@@ -249,31 +310,89 @@ export default {
         },
         handleSubmit (name) {
                 console.log(name)
+                var that = this
                 this.$refs[name].validate((valid) => {
                     console.log(valid)
                     if (valid) {
                         if(name =="formTop"){ 
-                            registerAccount({
-                                account:this.formTop.auccont,
-                                password:this.formTop.password
+                            console.log("账号密码登录")
+                            loginAccount({
+                                 account:this.formTop.auccont,
+                                 password:this.formTop.password
                             }).then(response => {
                                 console.log(response);
+                                if(response.data.success){    
+                                   Message.success('登录成功');
+                                   store.setMessageAction(true);//控制是否可以登录
+                                   that.$router.push({
+                                        path: `/product/report`,
+                                   })
+                                }else{
+                                   Message.error('登录失败');
+                                }
                             }).catch(error => {
                                 console.log(error)
                             })
+                        }else if(name =="formTop2"){//手机号码登录
+                         console.log("手机号码登录")
+                        loginPhone({
+                            phone:this.formTop2.phone,
+                            code:this.formTop2.yanzhen
+                        }).then(response=>{
+                           console.log(response)
+                            if(response.data.success){    
+                               Message.success('登录成功');
+                               store.setMessageAction(true);//控制是否可以登录
+                               that.$router.push({
+                                        path: `/product/report`,
+                                });
+                            }else{
+                                Message.error('登录失败');
+                            }
+                        }).catch(error=>{
+                           console.log(error)
+                        })}else if(name =="formTop3"){
+                            console.log("用户注册")
+                            registerAccount({
+                                account:this.formTop3.zaccunton,
+                                password:this.formTop3.zcpassword,
+                                phone:this.formTop3.zphone,
+                                code:this.formTop3.zyanzhen
+                            }).then(response=>{
+                                if(response.data.success){    
+                                   Message.success('注册成功');
+                                   store.setMessageAction(true);//控制是否可以登录
+                                   that.$router.push({
+                                        path: `/product/report`,
+                                    });
+                                }else{
+                                    Message.error('注册失败');
+                                }
+                                console.log(response)
+                            }).catch(error=>{
+                                console.log(error)
+                            })
                         }
-                        Message.success('Success!');
-                        store.setMessageAction(true)
-                    } else {
-                        Message.error('Fail!');
+                    }else{
+                       Message.error('验证信息失败'); 
                     }
                 })
         },
         sendcode:function(){
-            // if(this.formTop2.phone==''){
-            //     alert("请输入手机号码");
-            //     return;
-            // }
+            if(this.formTop2.phone==''){
+                 Message.error('请输入手机号码');
+                return;
+            }
+            getPhoneCode({
+                phone:this.formTop2.phone
+            }).then(response=>{
+                    console.log(response)
+                    if(response.status==200&&response.data.success){
+                         Message.success('验证码发送成功');
+                    }
+                }).catch( error=>{
+               console.log(error)
+                })
             this.time=35;
             this.disabled=true;
             this.timer();
@@ -289,7 +408,38 @@ export default {
                  this.btntxt="获取验证码";
                  this.disabled=false;
              }
-         }//设置定时
+         },//设置定时
+         sendcode2:function(){
+            if(this.formTop3.zphone==''){
+                 Message.error('请输入手机号码');
+                return;
+            }
+            getPhoneCode({
+                phone:this.formTop3.zphone
+            }).then(response=>{
+                    console.log(response)
+                    if(response.status==200&&response.data.success){
+                         Message.success('验证码发送成功');
+                    }
+                }).catch( error=>{
+               console.log(error)
+                })
+            this.time2=35;
+            this.disabled2=true;
+            this.timer2();
+        },
+        timer2:function () {
+             if (this.time2 > 0) {
+                 this.time2--;
+//                 console.log(this.time);
+                 this.btntxt2=this.time2+"s,后重新获取验证码";
+                 setTimeout(this.timer2, 1000);
+             } else{
+                 this.time2=0;
+                 this.btntxt2="获取验证码";
+                 this.disabled2=false;
+             }
+         },
     }
 }
 </script>
