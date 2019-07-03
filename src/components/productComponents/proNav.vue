@@ -9,13 +9,22 @@
                 <div class="nav-item" @click="selectNav('影像报告单识别')" :class="{active : active == '影像报告单识别'}">影像报告单识别</div>
                 <div class="nav-item" @click="selectNav('体检报告单识别')" :class="{active : active == '体检报告单识别'}">体检报告单识别</div>
             </div>
+            <div class="touxiang" v-if="show">
+                <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="" class="tx-image" @click="showTk">
+                <p class="tx-font" @click="showTk">{{account}}</p>
+                <div class="tankuang" :class="tkShow?'showtk':''">
+                    <div class="triangle"></div>
+                    <div class="tx-gr" @click="showModel">个人中心</div>
+                    <div class="tx-out">退出</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
   .warp{
       height: 95px;
-      width: 1200px;
+      width: 1300px;
       margin:0 auto;
       display: flex;
       align-items: center;
@@ -47,6 +56,62 @@
   .active{
      color: #37B2DB;
   }
+  .touxiang{
+      margin-left: 70px;
+      display: flex;
+      cursor: pointer;
+      position: relative;
+  }
+  .tx-image{
+      width: 25px;
+      height: 25px;
+      border-radius: 50%
+  }
+  .tx-font{
+      font-size: 14px;
+      color: #FFFFFF;
+      margin-left: 15px;
+      max-width: 60px;
+      line-height: 25px;
+  }
+  .tx-gr{
+      margin-top: 35px;
+  }
+  .tx-out{
+       margin-top: 14px;
+  }
+  .tx-gr:hover{
+      color: #37B2DB;
+  }
+  .tx-out:hover{
+       color: #37B2DB;
+  }
+  .tankuang{
+      position: absolute;
+      width: 168px;
+      height: 108px;
+      background: #FFFFFF;
+      font-size: 14px;
+      color: #111111;
+      flex-flow: column;
+      align-items: center;
+      left: -70px;
+      top:76px;
+      display: none;
+  }
+  .triangle{
+      display: inline-block;
+      vertical-align: top;
+      border-bottom: 15px solid #ffffff;
+      border-right: 15px solid transparent;
+      border-left: 15px solid transparent;
+      content: "";
+      position: absolute;
+      top: -15px;
+  }
+  .showtk{
+      display: flex;
+  }
 </style>
 <script>
 import bus from "../../comment/bus"
@@ -61,7 +126,10 @@ export default {
     },
     data(){
         return{
-            active:""
+            active:"",
+            show:false,
+            account:"",
+            tkShow:false
         }
     },
     methods:{
@@ -75,7 +143,7 @@ export default {
                 bus.$emit('id-selected', name)
                 // DOM 现在更新了
                 this.$router.push({
-                    path: `/product/report`,
+                    path: `/product/report/${this.account}`,
                 })
                 this.active = name
             }else{
@@ -85,7 +153,21 @@ export default {
                     content: "请登录后在点击"
                 })
             }
+        },
+        showTk(){
+           this.tkShow =  !this.tkShow
+        },
+        showModel(){
+            bus.$emit('show-model', true)//发送显示模态框按键
         }
+    },
+    mounted(){
+        var that = this
+        bus.$on('tx-show',function (id) {
+         console.log(id)
+         that.account = id.account 
+         that.show= true
+        })//显示头像
     },
     beforeDestroy () {
             bus.$off('id-selected')

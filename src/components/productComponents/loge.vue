@@ -325,7 +325,7 @@ export default {
                                    Message.success('登录成功');
                                    store.setMessageAction(true);//控制是否可以登录
                                    that.$router.push({
-                                        path: `/product/report`,
+                                        path: `/product/report/${response.data.result}`,
                                    })
                                 }else{
                                    Message.error('登录失败');

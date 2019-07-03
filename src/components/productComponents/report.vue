@@ -3,7 +3,7 @@
         <div class="warp">
            <header class="title">{{name}}</header>
            <Upload 
-             action="http://www.yijinhealth.com:8083/upimage/uploadALiYunHuaYanData"
+             action="http://192.168.31.165:8089/upimage/uploadALiYunHuaYanData"
              ref="upload"
             :show-upload-list="false"
             :default-file-list="defaultList"
@@ -23,7 +23,7 @@
                     <div class="left-title">原始图片</div>
                     <div class="bg">
                         <div v-viewer class="image">
-                          <img :src="'http://www.yijinhealth.com:8083/' + imgName" v-if="visible" style="width:630px;height: 430px" @click="add()">
+                          <img :src="'http://192.168.31.165:8089/' + imgName" v-if="visible" style="width:630px;height: 430px" @click="add()">
                         </div>
                         <!-- <div v-viewer="{movable: false}" class="image">
                           <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width:630px;height: 430px" @click="add()">
@@ -66,6 +66,32 @@
                 </div>
             </div>
         </div>
+        <Modal v-model="model">
+            <p>个人中心</p>
+            <Form :model="formLeft" label-position="left" :label-width="100">
+                <Form-item label="用户类别">
+                    <Input v-model="formLeft.input1"></Input>
+                </Form-item>
+                <Form-item label="手机号">
+                    <Input v-model="formLeft.input2"></Input>
+                </Form-item>
+                <Form-item label="企业名称">
+                    <Input v-model="formLeft.input3"></Input>
+                </Form-item>
+                <Form-item label="姓名">
+                    <Input v-model="formLeft.input4"></Input>
+                </Form-item>
+                <Form-item label="部门">
+                    <Input v-model="formLeft.input5"></Input>
+                </Form-item>
+                <Form-item label="剩余次数">
+                    <Input v-model="formLeft.input6"></Input>
+                </Form-item>
+                <Form-item label="测试次数">
+                    <Input v-model="formLeft.input7"></Input>
+                </Form-item>
+            </Form>
+        </Modal>
     </div>
 </template>
 <style scoped>
@@ -264,7 +290,8 @@
 }
 </style>
 <script>
-import { Upload,Button, Select,Icon,Progress,Modal,Notice} from 'iview';
+import { Upload,Button, Select,Icon,Progress,Modal,Notice,Form,FormItem,Input} from 'iview';
+import {getUserData} from "../../api/api";
 import bus from "../../comment/bus";
 export default {
     data(){
@@ -275,19 +302,30 @@ export default {
             select:"识别结果",
             defaultList: [
                 {
-                    'name': 'a42bdcc1178e62b4694c830f028db5c0',
-                    'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
+                    'name': '1.jpg',
+                    'url': 'http://192.168.31.165:8089/1.jpg'
                 },
                 {
-                    'name': 'bc7521e033abdd1e92222d733590f104',
-                    'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
+                    'name': '2.jpg',
+                    'url': 'http://192.168.31.165:8089/2.jpg'
                 }
             ],
-            imgName: 'a42bdcc1178e62b4694c830f028db5c0',
+            imgName: '1.jpg',
             visible: true,
             uploadList: ["",""],
             name:"病理报告单",
-            result:[]
+            result:[],
+            names:true,
+            model:false,//控制弹框
+            formLeft: {
+                    input1: '',
+                    input2: '',
+                    input3: '',
+                    input4: '',
+                    input5: '',
+                    input6: '',
+                    input7: ''
+            },//用户信息表
         }
     },
     components:{
@@ -295,7 +333,10 @@ export default {
         Button,
         Icon,
         Progress,
-        Modal
+        Modal,
+        Form,
+        FormItem,
+        Input
     },
     methods:{
         slecet(e){
@@ -313,7 +354,7 @@ export default {
         handleSuccess (res, file) {
             console.log(file)
             // 因为上传过程为实例，这里模拟添加 url
-            file.url = `http://www.yijinhealth.com:8083/${res.result.photoNames}`;
+            file.url = `http://192.168.31.165:8089/${res.result.photoNames}`;
             file.name = res.result.photoNames;
             var arr = res.result.physicalList
             this.result = arr
@@ -360,9 +401,21 @@ export default {
     mounted () {
         console.log(this.$refs.upload.fileList)
         this.uploadList = this.$refs.upload.fileList;
+        var account = this.$route.params.account
         var that = this
         bus.$on('id-selected', function (id) {
           that.name = id
+        })
+        bus.$on('show-model',function (id) {
+         console.log(id)
+         that.model = id
+        })//接受显示模态框
+        getUserData({
+           account 
+        }).then(response=>{        
+          bus.$emit('tx-show',response.data.result)//发送个人信息等
+        }).catch(error=>{
+            console.log(error)
         })
     }
 }

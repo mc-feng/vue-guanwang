@@ -64,7 +64,7 @@ export default new Router({
           component: loge,
         },
         {
-          path:'report',
+          path:'report/:account',
           name:"report",
           component: report,
         },
