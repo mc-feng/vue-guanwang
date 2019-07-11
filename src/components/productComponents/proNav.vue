@@ -10,7 +10,7 @@
                 <!-- <div class="nav-item" @click="selectNav('体检报告单识别')" :class="{active : active == '体检报告单识别'}">体检报告单识别</div> -->
             </div>
             <div class="touxiang" v-if="show">
-                <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="" class="tx-image" @click="showTk">
+                <img src="http://192.168.31.165:8089/touxiang.jpg" alt="" class="tx-image" @click="showTk">
                 <p class="tx-font" @click="showTk">{{account}}</p>
                 <div class="tankuang" :class="tkShow?'showtk':''">
                     <div class="triangle"></div>

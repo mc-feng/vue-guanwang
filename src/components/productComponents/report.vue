@@ -9,12 +9,12 @@
             :default-file-list="defaultList"
             :on-success="handleSuccess"
             :on-error="error"
-            :format="['jpg','jpeg','png']"
-            :max-size="2048"
+            :format="['jpg','jpeg','png','bmp']"
+            :max-size="4096"
             :on-format-error="handleFormatError"
             :on-exceeded-size="handleMaxSize"
             :before-upload="handleBeforeUpload"
-            :data="{account:'mcf'}"
+            :data="{account:myAccount}"
            >
                 <Button class="updata">上传文件</Button>
             </Upload>
@@ -463,7 +463,8 @@ export default {
                     userNumberCount:""
             },//用户信息表
             UpAction:"http://192.168.31.165:8089/analysis/uploadALiYunHuaYanData",
-            pane:false//是否显示扫描
+            pane:false,//是否显示扫描
+            myAccount:""//账户名称
         }
     },
     components:{
@@ -600,6 +601,7 @@ export default {
            var account = this.$route.params.account
         }//判断是否有cookie是否登录过
         var that = this
+        this.myAccount = account
         bus.$on('id-selected', function (id) {
           console.log(id)
           that.name = id

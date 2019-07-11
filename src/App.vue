@@ -5,13 +5,20 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   name: 'App',
   mounted (){
       if (this._isMobile()) {
         this.$router.replace('/mPage');
       } else {
-        this.$router.replace('/pcPage');
+        var cookies = Cookies.get('click')
+        var account = Cookies.get('account')
+        if(cookies){  
+         this.$router.push(`/product/report/${account}`)//防止刷新保留当前页面
+        }else{ 
+         this.$router.replace('/pcPage');
+        }
       }
     },
   methods:{

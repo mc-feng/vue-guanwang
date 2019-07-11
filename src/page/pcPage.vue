@@ -14,7 +14,7 @@ export default {
     components:{
         "my-nav":nav,
         "my-bottom":bottom
-    },
+    }
 }
 </script>
 <style scoped>

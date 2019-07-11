@@ -12,7 +12,7 @@
                                 <Input placeholder="请输入账号" v-model='formTop.auccont'></Input>
                             </Form-item>
                             <Form-item label="密码" prop="password">
-                                <Input v-model="formTop.password" placeholder="请输入密码"></Input>
+                                <Input v-model="formTop.password" placeholder="请输入密码" type="password"></Input>
                             </Form-item>
                             <Form-item>
                                 <Button type="primary" long @click="handleSubmit('formTop')">登录</Button>
@@ -189,16 +189,20 @@ export default {
         const checkPhone =(rule,value,callback)=>{
                if (value === '') {
                   callback(new Error('请输入手机号'));
+                  this.shouji = false;
                 }else if(!/^[1]([3-9])[0-9]{9}$/.test(value)){
-                    callback(new Error('手机号码错误'))
+                    callback(new Error('手机号码错误'));
+                    this.shouji = false;
                 }else{
                    checkPhoneUsed({
                        phone:value
                    }).then(response=>{
                        if(response.data.success){
-                           callback()
+                           callback();
+                           this.shouji = true;
                        }else{
-                           callback(new Error('手机号码已存在'))
+                           callback(new Error('手机号码已存在'));
+                           this.shouji = false;
                        }
                        console.log(response)
                    }).catch(error=>{
@@ -229,7 +233,7 @@ export default {
             if (value === '') {
                 callback(new Error('请输入手机号'));
             }else if(!/^[1]([3-9])[0-9]{9}$/.test(value)){
-                callback(new Error('手机号码格式错误'))
+                callback(new Error('手机号码格式错误'));
             }else{
                  callback()
             }
@@ -268,7 +272,7 @@ export default {
             },//手机验证码验证
             ruleValidate2:{
               zphone:[
-                  { validator:checkPhone, trigger: 'blur'},
+                  { validator:checkPhone, trigger: 'change'},
               ],
               zyanzhen:[
                   {validator:validatePass,trigger:'blur',message: '验证码不能为空'}
@@ -291,6 +295,7 @@ export default {
             btntxt2:"获取验证码",
             disabled2:false,
             time2:0,
+            shouji:false
         }
     },
     components:{
@@ -400,7 +405,7 @@ export default {
                 }).catch( error=>{
                console.log(error)
                 })
-            this.time=35;
+            this.time=60;
             this.disabled=true;
             this.timer();
         },//多少秒以后可以重新发送
@@ -417,23 +422,27 @@ export default {
              }
          },//设置定时
          sendcode2:function(){
-            if(this.formTop3.zphone==''){
-                 Message.error('请输入手机号码');
-                return;
-            }
-            getPhoneCode({
-                phone:this.formTop3.zphone
-            }).then(response=>{
-                    console.log(response)
-                    if(response.status==200&&response.data.success){
-                         Message.success('验证码发送成功');
-                    }
-                }).catch( error=>{
-               console.log(error)
-                })
-            this.time2=35;
-            this.disabled2=true;
-            this.timer2();
+             if(this.formTop3.zphone==''){
+                     Message.error('请输入手机号码');
+                    return;
+             }//防止手机号为空
+             if (this.shouji){//拦截验证码,防止手机存在继续发送
+                getPhoneCode({
+                    phone:this.formTop3.zphone
+                }).then(response=>{
+                        console.log(response)
+                        if(response.status==200&&response.data.success){
+                             Message.success('验证码发送成功');
+                        }
+                    }).catch( error=>{
+                   console.log(error)
+                    })
+                this.time2=35;
+                this.disabled2=true;
+                this.timer2();
+             }else{
+                 Message.error('手机号已存在，验证码发送失败');
+             }
         },
         timer2:function () {
              if (this.time2 > 0) {
