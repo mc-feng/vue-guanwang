@@ -26,7 +26,7 @@
                                 <Input v-model="formTop2.phone" placeholder="请输入手机号"></Input>
                             </Form-item>
                             <Form-item label="验证码" prop="yanzhen">
-                                <Input v-model="formTop2.yanzhen" placeholder="请输入验证码"></Input>
+                                <Input v-model="formTop2.yanzhen" placeholder="请输入验证码" :disabled="!disabled"></Input>
                                 <Button type="info" class="yanzhenB" :disabled="disabled" @click="sendcode">{{btntxt}}</Button>
                             </Form-item>
                             <Form-item>
@@ -43,7 +43,7 @@
                                 <Input v-model="formTop3.zphone" placeholder="请输入手机号"></Input>
                             </Form-item>
                             <Form-item prop="zyanzhen">
-                                <Input v-model="formTop3.zyanzhen" placeholder="请输入验证码"></Input>
+                                <Input v-model="formTop3.zyanzhen" placeholder="请输入验证码" :disabled="!disabled2"></Input>
                                 <Button type="info" class="yanzhenB" :disabled="disabled2" @click="sendcode2">{{btntxt2}}</Button>
                             </Form-item>
                             <Form-item prop="zaccunton">
@@ -130,6 +130,9 @@
     font-size: 15px;
     color: #000000;
   }
+  div>>>.ivu-input[disabled]{
+    background-color:#FFFFFF
+  }
   .label-warp{
     width: 330px;
     margin: 38px auto 0;
@@ -155,6 +158,7 @@
 import { TabPane,Tabs,Form,FormItem,Input,Button,Message} from 'iview';
 import {registerAccount,getPhoneCode,checkPhoneUsed,checkAccount,loginPhone,loginAccount} from "../../api/api";
 import {store} from "../../comment/store";
+import Cookies from 'js-cookie'
 export default {
     data(){
         const validateAuccont =(rule,value,callback)=>{
@@ -324,6 +328,7 @@ export default {
                                 if(response.data.success){    
                                    Message.success('登录成功');
                                    store.setMessageAction(true);//控制是否可以登录
+                                   Cookies.set('account', response.data.result)
                                    that.$router.push({
                                         path: `/product/report/${response.data.result}`,
                                    })
@@ -343,9 +348,10 @@ export default {
                             if(response.data.success){    
                                Message.success('登录成功');
                                store.setMessageAction(true);//控制是否可以登录
+                               Cookies.set('account', response.data.result)
                                that.$router.push({
-                                        path: `/product/report`,
-                                });
+                                        path: `/product/report/${response.data.result}`,
+                               })
                             }else{
                                 Message.error('登录失败');
                             }
@@ -362,9 +368,10 @@ export default {
                                 if(response.data.success){    
                                    Message.success('注册成功');
                                    store.setMessageAction(true);//控制是否可以登录
+                                   Cookies.set('account', response.data.result)
                                    that.$router.push({
-                                        path: `/product/report`,
-                                    });
+                                                path: `/product/report/${response.data.result}`,
+                                   })
                                 }else{
                                     Message.error('注册失败');
                                 }

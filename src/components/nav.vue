@@ -95,7 +95,13 @@ export default {
             }else if(name == this.$t('menu.tongxi')){
              this.$router.push({ path:'/pcPage/downLoad' })  
             }else if(name == this.$t("menu.chanping")){
-                this.$router.push('/product')
+                var cookies = Cookies.get('click')
+                var account = Cookies.get('account')
+                if(cookies){  
+                 this.$router.push(`/product/report/${account}`)
+                }else{ 
+                 this.$router.push('/product')
+                }
             }
             this.active = name;
          },

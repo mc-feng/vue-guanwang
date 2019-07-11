@@ -7,7 +7,7 @@
                 <div class="nav-item"  @click="selectNav('化验单识别')" :class="{active : active == '化验单识别'}">化验单识别</div>
                 <div class="nav-item" @click="selectNav('病理报告单识别')" :class="{active : active == '病理报告单识别'}">病理报告单识别</div>
                 <div class="nav-item" @click="selectNav('影像报告单识别')" :class="{active : active == '影像报告单识别'}">影像报告单识别</div>
-                <div class="nav-item" @click="selectNav('体检报告单识别')" :class="{active : active == '体检报告单识别'}">体检报告单识别</div>
+                <!-- <div class="nav-item" @click="selectNav('体检报告单识别')" :class="{active : active == '体检报告单识别'}">体检报告单识别</div> -->
             </div>
             <div class="touxiang" v-if="show">
                 <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="" class="tx-image" @click="showTk">
@@ -15,7 +15,7 @@
                 <div class="tankuang" :class="tkShow?'showtk':''">
                     <div class="triangle"></div>
                     <div class="tx-gr" @click="showModel">个人中心</div>
-                    <div class="tx-out">退出</div>
+                    <div class="tx-out" @click="quit">退出</div>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
      color: #37B2DB;
   }
   .touxiang{
-      margin-left: 70px;
+      margin-left: 260px;
       display: flex;
       cursor: pointer;
       position: relative;
@@ -117,6 +117,7 @@
 import bus from "../../comment/bus"
 import {store} from "../../comment/store";
 import {Modal} from 'iview'
+import Cookies from 'js-cookie'
 export default {
     props:{
         'background':{
@@ -138,7 +139,6 @@ export default {
             location.reload()
         },
         selectNav(name){
-            console.log(name)
             if(store.state.click){  
                 bus.$emit('id-selected', name)
                 // DOM 现在更新了
@@ -158,15 +158,26 @@ export default {
            this.tkShow =  !this.tkShow
         },
         showModel(){
-            bus.$emit('show-model', true)//发送显示模态框按键
+            bus.$emit('show-model', true);//发送显示模态框按键
+            this.showTk();
+        },
+        quit(){//退出登录
+           store.setMessageAction(false);
+           this.$router.replace({path: '/product/loge'});
+           this.show= false;
+           this.tkShow = false;
+           this.active = "";
+           Cookies.remove('click');
+           Cookies.remove('account')
         }
     },
     mounted(){
         var that = this
         bus.$on('tx-show',function (id) {
          console.log(id)
-         that.account = id.account 
-         that.show= true
+         that.account = id.account;
+         that.show= true;
+         store.setMessageAction(true)
         })//显示头像
     },
     beforeDestroy () {

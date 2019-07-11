@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 export const store = {
     debug: true,
     state: {
@@ -6,6 +7,8 @@ export const store = {
     setMessageAction (newValue) {
       if (this.debug) console.log('setMessageAction triggered with', newValue)
       this.state.click = newValue
+      Cookies.set('click', newValue)
+      console.log(document.cookie)
     },
     clearMessageAction () {
       if (this.debug) console.log('clearMessageAction triggered')
