@@ -10,8 +10,12 @@ import 'iview/dist/styles/iview.css';
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer';
 import Cookies from 'js-cookie'
+import {store} from "./comment/store";
+import axios from 'axios';
 const account = Cookies.get('account')
-Vue.use(VueI18n) 
+axios.defaults.withCredentials = true;
+Vue.use(VueI18n)
+Vue.use(Viewer)
 const i18n = new VueI18n({ 
  locale: 'zh', // 语言标识 
  messages: { 
@@ -24,9 +28,35 @@ Vue.prototype.WXConfig = WXConfig;
 Vue.prototype.msg = function(msg){
   　　return msg.replace(/;/g,"</br>")
 }//添加了一个全局过滤器进行v-hmtl中的换行
+console.log(account)
 router.beforeEach((to, from, next) => {
+  // if (account) { // 判断是否有token
+  //     next();
+  // } else {
+  //   if (whiteList.indexOf(to.path) == -1) { // 在免登录白名单，直接进入
+  //     next();
+  //   } else {
+  //     next('/login'); // 否则全部重定向到登录页
+  //   }
+  // }
+  // if(to.name =="report"){ 
+  //   if (account) { // 判断是否有token
+  //       next();
+  //   } else {
+  //     alert("小子别想走捷径")
+  //     next('/product/loge'); // 否则全部重定向到登录页
+  //   }
+  // }else{
+  //   next();
+  // }
   if(from.name =="loge"){
-    next();
+    if (store.state.click ||to.path=='/pcPage/home') { // 判断是否有token
+            next();
+        } else {
+          alert("小子别想走捷径")
+          next('/product/loge'); // 否则全部重定向到登录页
+        }
+    // next();
   }else{
      if(to.name =="report"){ 
         if (account) { // 判断是否有token
@@ -47,4 +77,3 @@ new Vue({
   i18n,
   template: '<App/>'
 })
-Vue.use(Viewer)

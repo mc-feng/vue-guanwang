@@ -8,7 +8,6 @@ export const store = {
       if (this.debug) console.log('setMessageAction triggered with', newValue)
       this.state.click = newValue
       Cookies.set('click', newValue)
-      console.log(document.cookie)
     },
     clearMessageAction () {
       if (this.debug) console.log('clearMessageAction triggered')
