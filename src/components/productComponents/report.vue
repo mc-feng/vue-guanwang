@@ -25,7 +25,7 @@
                     <div class="left-title">原始图片</div>
                     <div class="bg">
                         <div v-viewer class="image">
-                          <img :src="'http://192.168.31.165:8089/' + imgName" v-if="visible" style="width:630px;height: 430px" @click="add()">
+                          <img :src="'http://www.tonticn.cn:8089/' + imgName" v-if="visible" style="width:630px;height: 430px" @click="add()">
                         </div>
                         <!-- <div v-viewer="{movable: false}" class="image">
                           <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width:630px;height: 430px" @click="add()">
@@ -437,15 +437,15 @@ export default {
             defaultList: [
                 {
                     'name': '1.jpg',
-                    'url': 'http://192.168.31.165:8089/1.jpg'
+                    'url': 'http://www.tonticn.cn:8089/1.jpg'
                 },
                 {
                     'name': '2.jpg',
-                    'url': 'http://192.168.31.165:8089/2.jpg'
+                    'url': 'http://www.tonticn.cn:8089/2.jpg'
                 },
                 {
                     'name': '3.jpg',
-                    'url': 'http://192.168.31.165:8089/3.jpg'
+                    'url': 'http://www.tonticn.cn:8089/3.jpg'
                 }
             ],//默认显示的图片
             imgName: '1.jpg',
@@ -465,7 +465,7 @@ export default {
                     userNumber:"",
                     userNumberCount:""
             },//用户信息表
-            UpAction:"http://192.168.31.165:8089/analysis/uploadALiYunHuaYanData",
+            UpAction:"http://www.tonticn.cn:8089/analysis/uploadALiYunHuaYanData",
             pane:false,//是否显示扫描
             myAccount:""//账户名称
         }
@@ -524,7 +524,7 @@ export default {
             this.pane = false;
             // 因为上传过程为实例，这里模拟添加 url
             if(res.success){
-                file.url = `http://192.168.31.165:8089/${res.result.photoNames}`;
+                file.url = `http://www.tonticn.cn:8089/${res.result.photoNames}`;
                 file.name = res.result.photoNames;
                 var arr = res.result.physicalList
                 this.imgName = res.result.photoNames
@@ -538,6 +538,11 @@ export default {
                 Notice.warning({
                     title: '数量不够',
                     desc: '您所拥有的条数已用完，请联系管理员充值'
+                });
+            }else{
+                Notice.warning({
+                    title: '识别失败',
+                    desc: '很抱歉！图片识别失败'
                 });
             }
         },
@@ -616,64 +621,64 @@ export default {
           console.log(id)
           that.name = id
           if(id =="化验单识别"){
-              that.UpAction ="http://192.168.31.165:8089/analysis/uploadALiYunHuaYanData"
+              that.UpAction ="http://www.tonticn.cn:8089/analysis/uploadALiYunHuaYanData"
               console.log("进来的")
               that.defaultList=[
                 {
                     'name': '1.jpg',
-                    'url': 'http://192.168.31.165:8089/1.jpg',
+                    'url': 'http://www.tonticn.cn:8089/1.jpg',
                     "status": "finished"
                 },
                 {
                     'name': '2.jpg',
-                    'url': 'http://192.168.31.165:8089/2.jpg',
+                    'url': 'http://www.tonticn.cn:8089/2.jpg',
                     "status": "finished"
                 },
                 {
                     'name': '3.jpg',
-                    'url': 'http://192.168.31.165:8089/3.jpg',
+                    'url': 'http://www.tonticn.cn:8089/3.jpg',
                     "status": "finished"
                 }
               ];
               that.imgName='1.jpg';
               that.result =[{"dealDate":[{"isNumber":"0","name":"红细胞计数","ranges":"成年男性：4.0~5.5，成年女性：3.5~5.0，新生儿：6.0~7.0，婴儿：3.0~4.5，儿童：4.0~5.3","result":"4.6","type":"血常规","unit":"10^12个/L"},{"isNumber":"0","name":"白细胞计数","ranges":"成人白细胞数：4.0~10.0,新生儿：15.0~20.0;婴儿：11.0~12.0","result":"7.6","type":"血常规","unit":"10^9个/L"},{"isNumber":"0","name":"血红蛋白测定","ranges":"成年男性120~160，成年女性110~150，新生儿170~200，婴儿100~140，儿童120~140","result":"127","type":"血常规","unit":"g/L"},{"isNumber":"0","name":"中性粒细胞%","ranges":"50~70","result":"58.5","type":"血常规","unit":"%"},{"isNumber":"0","name":"红细胞压积","ranges":"男性为40~50;女性为36~45;新生儿为49~60;","result":"30.7","type":"血常规","unit":"%"},{"isNumber":"0","name":"淋巴细胞百分比","ranges":"20~40","result":"30.7","type":"血常规","unit":"%"},{"isNumber":"0","name":"单核细胞","ranges":"3~8","result":"5.1","type":"血常规","unit":"%"},{"isNumber":"0","name":"平均红细胞体积","ranges":"82~95","result":"85","type":"血常规","unit":"fl"},{"isNumber":"0","name":"嗜碱性粒细胞%","ranges":"0~1","result":"27.5","type":"血常规","unit":"%"},{"isNumber":"0","name":"嗜酸性粒细胞%","ranges":"0.5~5","result":"5.6","type":"血常规","unit":"%"},{"isNumber":"0","name":"平均血红蛋白浓度","ranges":"320~360","result":"325","type":"血常规","unit":"g/L"},{"isNumber":"0","name":"平均血小板体积","ranges":"7-13","result":"10.2","type":"血常规","unit":"fl"},{"isNumber":"0","name":"淋巴细胞绝对数","ranges":"1.1-3.2","result":"2.3","type":"血常规","unit":"10^9/L"},{"isNumber":"0","name":"血小板分布宽度","ranges":"","result":"12.4","type":"血常规","unit":"pg"},{"isNumber":"0","name":"血小板计数","ranges":"100~300","result":"171","type":"血常规","unit":"10^9/L"},{"isNumber":"0","name":"血小板压积%","ranges":"0.18~0.35","type":"血常规","unit":"%"}],"modify":false,"physicalTyep":"血常规"}]
           }else if(id=="影像报告单识别"){
-              that.UpAction ="http://192.168.31.165:8089/analysis/uploadALiYunYingXiangData";
+              that.UpAction ="http://www.tonticn.cn:8089/analysis/uploadALiYunYingXiangData";
               that.defaultList=[
                 {
                     'name': '4.jpg',
-                    'url': 'http://192.168.31.165:8089/4.jpg',
+                    'url': 'http://www.tonticn.cn:8089/4.jpg',
                     "status": "finished"
                 },
                 {
                     'name': '5.jpg',
-                    'url': 'http://192.168.31.165:8089/5.jpg',
+                    'url': 'http://www.tonticn.cn:8089/5.jpg',
                     "status": "finished"
                 },
                 {
                     'name': '6.jpg',
-                    'url': 'http://192.168.31.165:8089/6.jpg',
+                    'url': 'http://www.tonticn.cn:8089/6.jpg',
                     "status": "finished"
                 }
               ];
               that.imgName='4.jpg'
               that.result = {"age":"","conclusion":"胆囊小息肉","data":"","describe":"肝外形大小正常范围，表面光滑，肝实质回声分布均匀，血管网清晰，各切面扫查未见明显的囊实性占位病变。门静脉主干内径正常范围。左右肝内胆管未见扩张。<br/>胆囊外形正常，囊壁上见一枚中等回声点附于囊壁，大小约0.3cm，不随体位改变而移动，后不伴声影。胆总管内径正常，内未见异常回声。<br/>脾外形大小正常，轮廓光整，脾实质回声均匀细腻。<br/>胰腺外形大小正常范围，边界整齐清晰，内部呈均匀分布，未见团块回声，主胰管未见扩张。","hosptialName":"","hosptialTime":"","name":"姓名：倪红","openId":"","photoNames":"1562743856693.jpg","reportId":"","siteType":"检查项目：肝胆脾胰(彩超)","time":"","type":""}
           }else if(id=="病理报告单识别"){
-              that.UpAction ="http://192.168.31.165:8089/analysis/uploadALiYunBingLiData";
+              that.UpAction ="http://www.tonticn.cn:8089/analysis/uploadALiYunBingLiData";
               that.defaultList=[
                 {
                     'name': '7.jpg',
-                    'url': 'http://192.168.31.165:8089/7.jpg',
+                    'url': 'http://www.tonticn.cn:8089/7.jpg',
                     "status": "finished"
                 },
                 {
                     'name': '8.jpg',
-                    'url': 'http://192.168.31.165:8089/8.jpg',
+                    'url': 'http://www.tonticn.cn:8089/8.jpg',
                     "status": "finished"
                 },
                 {
                     'name': '9.jpg',
-                    'url': 'http://192.168.31.165:8089/9.jpg',
+                    'url': 'http://www.tonticn.cn:8089/9.jpg',
                     "status": "finished"
                 }
               ];
@@ -684,6 +689,15 @@ export default {
         bus.$on('show-model',function (id) {
          console.log(id)
          that.model = id
+           getUserData({
+             account 
+            }).then(response=>{        
+            var personal = response.data.result
+            // bus.$emit('tx-show',personal)//发送个人信息等
+            that.formLeft = Object.assign({},personal)
+            }).catch(error=>{
+                console.log(error)
+            })
         })//是否显示个人信息模态框
         getUserData({
            account 

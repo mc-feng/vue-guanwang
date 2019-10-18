@@ -76,6 +76,13 @@ export function uploadALiYunBingLiData(data){//上传病理报告
         data:data
     })
 }
+export function logout(data){//上传病理报告
+    return axios({
+        url:"/login/logout",
+        method:"post",
+        data:data
+    })
+}
 // export default { // 暴露接口
 //     registerAccount
 // }

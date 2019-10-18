@@ -8,9 +8,32 @@
                     <div class="badge">NEW</div>
                 </div>
                 <div class="nav-item"  @click="selected($t('menu.home'))" :class="{active : active == '首页'|| active == 'Home'}">{{$t('menu.home')}}</div>
-                <div class="nav-item"  @click="selected($t('menu.project'))" :class="{active : active == '项目介绍'|| active == 'Project Introduction'}">{{$t('menu.project')}}</div>
+                <div class="nav-item"  @click="selected('产品介绍')" :class="{active : active == '产品介绍'}">
+                    {{"产品介绍"}}
+                    <i class="iconfont sword" :class="{actives : show1}">&#xe6b9;</i>
+                    <transition name="fade">
+                        <div class="sub-view" v-if="show1">
+                            <div class="sub-item" @click.stop="selected2('智慧医疗')" :class="{active : subActive == '智慧医疗'}"><i class="iconfont fontSet" :class="{actives : subActive == '智慧医疗'}">&#xe619;</i>智慧医疗</div>
+                            <div class="sub-item" @click.stop="selected2('保险科技')" :class="{active : subActive == '保险科技'}"><i class="iconfont fontSet" :class="{actives : subActive == '保险科技'}">&#xe664;</i>保险科技</div>
+                            <div class="sub-item" @click.stop="selected2('保险创新')" :class="{active : subActive == '保险创新'}"><i class="iconfont fontSet" :class="{actives : subActive == '保险创新'}">&#xe60f;</i>保险创新</div>
+                        </div>
+                    </transition>
+                </div>
+                <div class="nav-item"  @click="selected('产品下载')" :class="{active : active == '产品下载'}">
+                    {{"产品下载"}}
+                    <i class="iconfont sword" :class="{actives : show2}">&#xe6b9;</i>
+                    <transition name="fade">
+                        <div class="sub-view showHeight" v-if="show2">
+                            <div class="sub-item" @click.stop="selected2('义金健康')" :class="{active : subActive == '义金健康'}"><i class="iconfont fontSet" :class="{actives : subActive == '义金健康'}">&#xe60b;</i>义金健康</div>
+                            <div class="sub-item" @click.stop="selected2('童熙健康')" :class="{active : subActive == '童熙健康'}"><i class="iconfont fontSet" :class="{actives : subActive == '童熙健康'}">&#xe602;</i>童熙健康</div>
+                        </div>
+                    </transition>
+                </div>
                 <div class="nav-item"  @click="selected($t('menu.partner'))" :class="{active : active == '合作伙伴'|| active == 'Partner'}">{{$t('menu.partner')}}</div>
-                <div class="nav-item"  @click="selected($t('menu.tongxi'))" :class="{active : active == '童熙健康'|| active == 'Tongxi health'}">{{$t('menu.tongxi')}}</div>
+                <div class="nav-item"  @click="selected('关于我们')" :class="{active : active == '关于我们'}">{{"关于我们"}}</div>
+                <!-- <div class="nav-item"  @click="selected($t('menu.project'))" :class="{active : active == '项目介绍'|| active == 'Project Introduction'}">{{$t('menu.project')}}</div>
+                <div class="nav-item"  @click="selected($t('menu.partner'))" :class="{active : active == '合作伙伴'|| active == 'Partner'}">{{$t('menu.partner')}}</div>
+                <div class="nav-item"  @click="selected($t('menu.tongxi'))" :class="{active : active == '童熙健康'|| active == 'Tongxi health'}">{{$t('menu.tongxi')}}</div> -->
                 <div class="nav-item">
                     <div class="nav-select" @click="changeLang('zh')" :class="{active : lang == 'zh'}">中文</div>/
                     <div class="nav-select" @click="changeLang('en')" :class="{active: lang == 'en'}">English</div>
@@ -69,7 +92,53 @@
    .nav-select{
        display: inline-block;
    }
+    .sword{
+        position: absolute;
+        right: -16px;
+        top: 25%;
+        font-size: 12px;
+        color: #FFFFFF;
+    }
+    .sub-view{
+        padding-bottom: 23px;
+        background:  rgba(3,15,34,0.54);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column nowrap;
+        width: 100px;
+        position: absolute;
+        left: -14px;
+        height: 160px;
+        overflow: hidden;
+    }
+    .showHeight{
+        height: 110px;
+    }
+    .sub-item{
+        margin-top: 21px;
+        line-height: 25px;
+        color: #fff;
+        font-size: 16px;
+        position: relative;
+    }
+    .fontSet{
+       font-size: 16px;
+       margin-right: 5px;
+       color: #fff;
+    }
+    .fade-leave-active,.fade-enter-active{
+            transition: height .5s ease-in .1s; 
+    }
+    .fade-leave-active,.fade-enter{
+            height:0px !important;
+    }
    .active {
+        color: #58E3E4;
+    }
+   .actives{
+        transform:rotate(-180deg);
+        transition:all .5s ease-in .1s;
         color: #58E3E4;
     }
 </style>
@@ -80,21 +149,27 @@ export default {
     data(){
         return{
             active:this.$t('menu.home'),
+            subActive:"",
+            show1:false,
+            show2:false,
             lang:"zh"
         }
     },
     methods:{
         selected(name){
             if(name==this.$t('menu.home')){
-             this.$router.push({ path:'/pcPage/home' })
+                this.show2 = false;
+                this.show1 =false;
+                this.subActive = "";
+                this.$router.push({ path:'/pcPage/home' })
             //  location.reload()
-            }else if(name == this.$t('menu.project')){
-             this.$router.push({ path:'/pcPage/project' })  
             }else if(name == this.$t('menu.partner')){
-             this.$router.push({ path:'/pcPage/panter' })  
-            }else if(name == this.$t('menu.tongxi')){
-             this.$router.push({ path:'/pcPage/downLoad' })  
+                this.show2 = false;
+                this.show1 =false;
+                this.subActive = "";
+                this.$router.push({ path:'/pcPage/panter' })  
             }else if(name == this.$t("menu.chanping")){
+                this.subActive = "";
                 var cookies = Cookies.get('click')
                 var account = Cookies.get('account')
                 if(cookies){  
@@ -104,7 +179,30 @@ export default {
                 }
             }
             this.active = name;
+            if(name=="产品介绍"){
+                this.show2 = false;
+                this.show1 = !this.show1
+            }else if(name=="产品下载"){
+                 this.show1 =false;
+                 this.show2 =  !this.show2
+            }else if(name=='关于我们'){
+                  this.show2 = false;
+                  this.show1 =false;
+                   this.$router.push({name:"pcAboutUs"})
+            }
          },
+        selected2(names){
+            this.show2 =false;
+            this.show1 =false;
+            if((names=="义金健康")||(names=="童熙健康")){
+              this.$router.push({name:"pcDownLoad",params:{product:names}})
+            }else{
+               this.$router.push({ name:'pcContent',params:{names}}) 
+            }
+            // bus.$emit("navName","")
+            this.subActive = names;
+            console.log(names)
+        },
         changeLang(res){
             Cookies.set('lang', res);//设置name
             var lang = Cookies.get('lang');//获取name

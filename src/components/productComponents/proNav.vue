@@ -10,7 +10,7 @@
                 <!-- <div class="nav-item" @click="selectNav('体检报告单识别')" :class="{active : active == '体检报告单识别'}">体检报告单识别</div> -->
             </div>
             <div class="touxiang" v-if="show">
-                <img src="http://192.168.31.165:8089/touxiang.jpg" alt="" class="tx-image" @click="showTk">
+                <img src="http://www.tonticn.cn:8089/touxiang.jpg" alt="" class="tx-image" @click="showTk">
                 <p class="tx-font" @click="showTk">{{account}}</p>
                 <div class="tankuang" :class="tkShow?'showtk':''">
                     <div class="triangle"></div>
@@ -114,10 +114,12 @@
   }
 </style>
 <script>
-import bus from "../../comment/bus"
+import bus from "../../comment/bus";
 import {store} from "../../comment/store";
-import {Modal} from 'iview'
-import Cookies from 'js-cookie'
+import {Modal} from 'iview';
+import Cookies from 'js-cookie';
+import {logout} from "../../api/api";
+import {Message} from 'iview';
 export default {
     props:{
         'background':{
@@ -167,6 +169,10 @@ export default {
            this.show= false;
            this.tkShow = false;
            this.active = "";
+           logout({}).then((res)=>{
+               console.log(res)
+           }).catch((err)=>{
+           })
            Cookies.remove('click');
            Cookies.remove('account')
         }

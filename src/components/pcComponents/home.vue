@@ -23,7 +23,7 @@
               </div>
           </div>
           <div class="home-item"> 
-              <div class="images-items" @click="navToContent('家庭健康')">
+              <div class="images-items" @click="navToContent('保险创新')">
                   <div class="home-font">{{$t('home.jiankang')}}</div>
                   <img src="../../assets/3.png" alt="" >
               </div>

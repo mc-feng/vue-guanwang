@@ -5,6 +5,21 @@
               <Tabs value="name1" @on-click="browseNotice">
                 <Tab-pane label="登录" name="name1">
                     <div class="label-warp" v-if="yanzhen">
+                        <Form :model="formTop2" ref='formTop2' label-position="top" :rules="ruleValidate1">
+                            <Form-item label="手机号" prop="phone">
+                                <Input v-model="formTop2.phone" placeholder="请输入手机号"></Input>
+                            </Form-item>
+                            <Form-item label="验证码" prop="yanzhen">
+                                <Input v-model="formTop2.yanzhen" placeholder="请输入验证码" :disabled="!disabled"></Input>
+                                <Button type="info" class="yanzhenB" :disabled="disabled" @click="sendcode">{{btntxt}}</Button>
+                            </Form-item>
+                            <Form-item>
+                                <Button type="primary" long @click="handleSubmit('formTop2')">登录</Button>
+                            </Form-item>
+                            <div class="yanzhen" @click="qiehuan()">账号登录</div>
+                        </Form>
+                    </div>
+                    <div class="label-warp" v-else>
                         <Form>
                         </Form>
                         <Form label-position="top" ref='formTop' :model='formTop' :rules="ruleValidate">
@@ -19,21 +34,6 @@
                             </Form-item>
                             <div class="yanzhen" @click="qiehuan()">验证码登录</div>
                         </Form> 
-                    </div>
-                    <div class="label-warp" v-else>
-                        <Form :model="formTop2" ref='formTop2' label-position="top" :rules="ruleValidate1">
-                            <Form-item label="手机号" prop="phone">
-                                <Input v-model="formTop2.phone" placeholder="请输入手机号"></Input>
-                            </Form-item>
-                            <Form-item label="验证码" prop="yanzhen">
-                                <Input v-model="formTop2.yanzhen" placeholder="请输入验证码" :disabled="!disabled"></Input>
-                                <Button type="info" class="yanzhenB" :disabled="disabled" @click="sendcode">{{btntxt}}</Button>
-                            </Form-item>
-                            <Form-item>
-                                <Button type="primary" long @click="handleSubmit('formTop2')">登录</Button>
-                            </Form-item>
-                            <div class="yanzhen" @click="qiehuan()">账号登录</div>
-                        </Form>
                     </div>
                 </Tab-pane>
                 <Tab-pane label="注册" name="name2" v-show="hidde">
@@ -215,8 +215,9 @@ export default {
                   callback(new Error('请输入用户名'));
             }else{
                 console.log("准备检查")
+                console.log(value)
                 checkAccount({
-                    Account:value
+                    account:value
                 }).then(response=>{
                     if(response.data.success){
                         callback()
@@ -338,7 +339,7 @@ export default {
                                         path: `/product/report/${response.data.result}`,
                                    })
                                 }else{
-                                   Message.error('登录失败');
+                                   Message.error(response.data.message);
                                 }
                             }).catch(error => {
                                 console.log(error)
@@ -358,7 +359,7 @@ export default {
                                         path: `/product/report/${response.data.result}`,
                                })
                             }else{
-                                Message.error('登录失败');
+                                Message.error("验证码错误");
                             }
                         }).catch(error=>{
                            console.log(error)
@@ -378,7 +379,7 @@ export default {
                                                 path: `/product/report/${response.data.result}`,
                                    })
                                 }else{
-                                    Message.error('注册失败');
+                                    Message.error(response.data.message);
                                 }
                                 console.log(response)
                             }).catch(error=>{
@@ -437,7 +438,7 @@ export default {
                     }).catch( error=>{
                    console.log(error)
                     })
-                this.time2=35;
+                this.time2=60;
                 this.disabled2=true;
                 this.timer2();
              }else{

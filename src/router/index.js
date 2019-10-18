@@ -5,6 +5,7 @@ import pcProject from "@/components/pcComponents/project"
 import pcDown from "@/components/pcComponents/downLoad"
 import pcPanter from "@/components/pcComponents/panter"
 import pcContent from "@/components/pcComponents/Content"
+import pcAboutUs from "@/components/pcComponents/about"
 import pcPage from "@/page/pcPage"
 import mPage from "@/page/mPage"
 import product from "@/page/product"
@@ -29,9 +30,14 @@ export default new Router({
           component: pcProject
         },
         {
-          path:'downLoad',
+          path:'downLoad/:product',
           name:"pcDownLoad",
           component: pcDown
+        },
+        {
+          path:'pcAboutUs',
+          name:"pcAboutUs",
+          component: pcAboutUs
         },
         {
           path:'panter',
@@ -39,7 +45,7 @@ export default new Router({
           component: pcPanter
         },
         {
-          path:'content',
+          path:'content/:names',
           name:"pcContent",
           component: pcContent
         },
