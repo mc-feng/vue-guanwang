@@ -8,29 +8,29 @@
                     <div class="badge">NEW</div>
                 </div>
                 <div class="nav-item"  @click="selected($t('menu.home'))" :class="{active : active == '首页'|| active == 'Home'}">{{$t('menu.home')}}</div>
-                <div class="nav-item"  @click="selected('产品介绍')" :class="{active : active == '产品介绍'}">
-                    {{"产品介绍"}}
+                <div class="nav-item"  @click="selected($t('menu.jieshao'))" :class="{active : active == '产品介绍'|| active == 'Products'}">
+                    {{$t('menu.jieshao')}}
                     <i class="iconfont sword" :class="{actives : show1}">&#xe6b9;</i>
                     <transition name="fade">
-                        <div class="sub-view" v-if="show1">
-                            <div class="sub-item" @click.stop="selected2('智慧医疗')" :class="{active : subActive == '智慧医疗'}"><i class="iconfont fontSet" :class="{actives : subActive == '智慧医疗'}">&#xe619;</i>智慧医疗</div>
-                            <div class="sub-item" @click.stop="selected2('保险科技')" :class="{active : subActive == '保险科技'}"><i class="iconfont fontSet" :class="{actives : subActive == '保险科技'}">&#xe664;</i>保险科技</div>
-                            <div class="sub-item" @click.stop="selected2('保险创新')" :class="{active : subActive == '保险创新'}"><i class="iconfont fontSet" :class="{actives : subActive == '保险创新'}">&#xe60f;</i>保险创新</div>
+                        <div class="sub-view" v-if="show1" :class="{english :active == 'Products'}">
+                            <div class="sub-item" @click.stop="selected2($t('home.yiliao'))" :class="{active : subActive == '智慧医疗'||subActive == 'Smart medical'}"><i class="iconfont fontSet" :class="{actives : subActive == '智慧医疗'}">&#xe619;</i>{{$t('home.yiliao')}}</div>
+                            <div class="sub-item" @click.stop="selected2($t('home.baoxian'))" :class="{active : subActive == '保险科技'||subActive == 'Science and Technology Insurance'}"><i class="iconfont fontSet" :class="{actives : subActive == '保险科技'}">&#xe664;</i>{{$t('home.baoxian')}}</div>
+                            <div class="sub-item" @click.stop="selected2($t('home.chuangxin'))" :class="{active : subActive == '保险创新'||subActive == 'Insurance innovation'}"><i class="iconfont fontSet" :class="{actives : subActive == '保险创新'}">&#xe60f;</i>{{$t('home.chuangxin')}}</div>
                         </div>
                     </transition>
                 </div>
-                <div class="nav-item"  @click="selected('产品下载')" :class="{active : active == '产品下载'}">
-                    {{"产品下载"}}
+                <div class="nav-item"  @click="selected($t('menu.downLoad'))" :class="{active : active == '产品下载'|| active == 'Download'}">
+                    {{$t('menu.downLoad')}}
                     <i class="iconfont sword" :class="{actives : show2}">&#xe6b9;</i>
                     <transition name="fade">
-                        <div class="sub-view showHeight" v-if="show2">
-                            <div class="sub-item" @click.stop="selected2('义金健康')" :class="{active : subActive == '义金健康'}"><i class="iconfont fontSet" :class="{actives : subActive == '义金健康'}">&#xe60b;</i>义金健康</div>
-                            <div class="sub-item" @click.stop="selected2('童熙健康')" :class="{active : subActive == '童熙健康'}"><i class="iconfont fontSet" :class="{actives : subActive == '童熙健康'}">&#xe602;</i>童熙健康</div>
+                        <div class="sub-view showHeight" v-if="show2" :class="{english2 :active == 'Download'}">
+                            <div class="sub-item" @click.stop="selected2($t('menu.yijin'))" :class="{active : subActive == '义金健康'||subActive == 'Yijin Health'}"><i class="iconfont fontSet" :class="{actives : subActive == '义金健康'}">&#xe60b;</i>{{$t('menu.yijin')}}</div>
+                            <div class="sub-item" @click.stop="selected2($t('menu.tongxi'))" :class="{active : subActive == '童熙健康'||subActive == 'Tongxi health'}"><i class="iconfont fontSet" :class="{actives : subActive == '童熙健康'}">&#xe602;</i>{{$t('menu.tongxi')}}</div>
                         </div>
                     </transition>
                 </div>
                 <div class="nav-item"  @click="selected($t('menu.partner'))" :class="{active : active == '合作伙伴'|| active == 'Partner'}">{{$t('menu.partner')}}</div>
-                <div class="nav-item"  @click="selected('关于我们')" :class="{active : active == '关于我们'}">{{"关于我们"}}</div>
+                <div class="nav-item"  @click="selected($t('menu.aboutUs'))" :class="{active : active == '关于我们'|| active == 'About'}">{{$t('menu.aboutUs')}}</div>
                 <!-- <div class="nav-item"  @click="selected($t('menu.project'))" :class="{active : active == '项目介绍'|| active == 'Project Introduction'}">{{$t('menu.project')}}</div>
                 <div class="nav-item"  @click="selected($t('menu.partner'))" :class="{active : active == '合作伙伴'|| active == 'Partner'}">{{$t('menu.partner')}}</div>
                 <div class="nav-item"  @click="selected($t('menu.tongxi'))" :class="{active : active == '童熙健康'|| active == 'Tongxi health'}">{{$t('menu.tongxi')}}</div> -->
@@ -121,6 +121,7 @@
         color: #fff;
         font-size: 16px;
         position: relative;
+        text-align: center;
     }
     .fontSet{
        font-size: 16px;
@@ -140,6 +141,12 @@
         transform:rotate(-180deg);
         transition:all .5s ease-in .1s;
         color: #58E3E4;
+    }
+    .english {
+        width: 300px;
+    }
+    .english2{
+        width: 200px
     }
 </style>
 <script>
@@ -179,13 +186,13 @@ export default {
                 }
             }
             this.active = name;
-            if(name=="产品介绍"){
+            if(name==this.$t("menu.jieshao")){
                 this.show2 = false;
                 this.show1 = !this.show1
-            }else if(name=="产品下载"){
+            }else if(name==this.$t("menu.downLoad")){
                  this.show1 =false;
                  this.show2 =  !this.show2
-            }else if(name=='关于我们'){
+            }else if(name==this.$t("menu.aboutUs")){
                   this.show2 = false;
                   this.show1 =false;
                    this.$router.push({name:"pcAboutUs"})
@@ -194,7 +201,7 @@ export default {
         selected2(names){
             this.show2 =false;
             this.show1 =false;
-            if((names=="义金健康")||(names=="童熙健康")){
+            if((names==this.$t('menu.yijin'))||(names==this.$t('menu.tongxi'))){
               this.$router.push({name:"pcDownLoad",params:{product:names}})
             }else{
                this.$router.push({ name:'pcContent',params:{names}}) 

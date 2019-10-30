@@ -1,7 +1,7 @@
 <template>
     <div class="content">
        <div class="content-warp">
-        <template v-if="contentName=='智慧医疗'">
+        <template v-if="(contentName=='智慧医疗')||(contentName=='Smart medical')">
             <div class="content-title">
                 <div class="tile-tips"></div>
                 <div>{{$t('content.yiliaoTitle')}}</div>
@@ -35,15 +35,15 @@
             </div>
             <div class="content-items">
                 <div class="items-left">
-                    <div class="items-title">{{$t('content.yiliaoHeader2')}}</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent2')}}</div>
+                    <div class="items-title">{{$t('content.yiliaoHeader4')}}</div>
+                    <div class="items-jieshao">{{$t('content.yiliaoContent4')}}</div>
                 </div>
                 <div class="items-right">
                     <img src="../../assets/content/yiliao/jiankong.png" alt="" class="items-image">
                 </div>
             </div>
         </template>
-        <template v-if="contentName == '保险科技'">
+        <template v-if="(contentName=='保险科技')||(contentName=='Science and Technology Insurance')">
             <div class="content-title">
                 <div class="tile-tips"></div>
                 <div>{{$t('content.baoxianTitle')}}</div>
@@ -53,14 +53,14 @@
                     <img src="../../assets/content/keji/dangan.png" alt="" class="items-image">
                 </div>
                 <div class="items-right">
-                    <div class="items-title">健康档案归档</div>
+                    <div class="items-title">{{$t('content.baoxianHeader1')}}</div>
                     <div class="items-jieshao">{{$t('content.baoxianContent1')}}</div>
                 </div>
             </div>
             <div class="content-items">
                 <div class="items-left">
-                    <div class="items-title">医疗票据归档</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent2')}}</div>
+                    <div class="items-title">{{$t('content.baoxianHeader2')}}</div>
+                    <div class="items-jieshao">{{$t('content.baoxianContent2')}}</div>
                 </div>
                 <div class="items-right">
                     <img src="../../assets/content/keji/piaoju.png" alt="" class="items-image">
@@ -71,29 +71,29 @@
                     <img src="../../assets/content/keji/hebao.png" alt="" class="items-image">
                 </div>
                 <div class="items-right">
-                    <div class="items-title">智能核保</div>
-                    <div class="items-jieshao">{{$t('content.baoxianContent1')}}</div>
+                    <div class="items-title">{{$t('content.baoxianHeader3')}}</div>
+                    <div class="items-jieshao">{{$t('content.baoxianContent3')}}</div>
                 </div>
             </div>
         </template>
-        <template v-if="contentName == '保险创新'">
+        <template v-if="(contentName=='保险创新')||(contentName=='Insurance innovation')">
             <div class="content-title">
                 <div class="tile-tips"></div>
-                <div>{{$t('content.jiankangTitle')}}</div>
+                <div>{{$t('content.chuangxinTitle')}}</div>
             </div>
             <div class="content-items">
                 <div class="items-left">
                     <img src="../../assets/content/chuanxin/fangai.png" alt="" class="items-image">
                 </div>
                 <div class="items-right">
-                    <div class="items-title">防艾险</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent1')}}</div>
+                    <div class="items-title">{{$t('content.chuangxinHeader1')}}</div>
+                    <div class="items-jieshao">{{$t('content.chuangxinContent1')}}</div>
                 </div>
             </div>
             <div class="content-items">
                 <div class="items-left">
-                    <div class="items-title">噬菌体</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent2')}}</div>
+                    <div class="items-title">{{$t('content.chuangxinHeader2')}}</div>
+                    <div class="items-jieshao">{{$t('content.chuangxinContent2')}}</div>
                 </div>
                 <div class="items-right">
                     <img src="../../assets/content/chuanxin/chijun.png" alt="" class="items-image">
@@ -104,14 +104,14 @@
                     <img src="../../assets/content/chuanxin/cuolou.png" alt="" class="items-image">
                 </div>
                 <div class="items-right">
-                    <div class="items-title">体检错漏险</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent3')}}</div>
+                    <div class="items-title">{{$t('content.chuangxinHeader3')}}</div>
+                    <div class="items-jieshao">{{$t('content.chuangxinContent3')}}</div>
                 </div>
             </div>
             <div class="content-items">
                 <div class="items-left">
-                    <div class="items-title">物联网保险</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent2')}}</div>
+                    <div class="items-title">{{$t('content.chuangxinHeader4')}}</div>
+                    <div class="items-jieshao">{{$t('content.chuangxinContent4')}}</div>
                 </div>
                 <div class="items-right">
                     <img src="../../assets/content/chuanxin/wuian.png" alt="" class="items-image">

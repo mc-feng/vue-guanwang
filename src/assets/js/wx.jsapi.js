@@ -4,7 +4,7 @@ export default {
  
     wxShowMenu: function() {
         console.log(location.href.split('#')[0])
-        axios.get('http://www.yijinhealth.com/FS/login/sharingWeb?url='+encodeURIComponent(location.href.split('#')[0])).then(function(res) {
+        axios.get('http://www.yijinhealth.com:8080/FS/login/sharingWeb?url='+encodeURIComponent(location.href.split('#')[0])).then(function(res) {
             var getMsg = res.data;
             //     wx.config({
  

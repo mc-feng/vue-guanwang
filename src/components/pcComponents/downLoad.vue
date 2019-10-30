@@ -1,7 +1,7 @@
 <template>
-    <div :class="[productName == '义金健康'?'down1':'down2']">
+    <div :class="[(productName == '义金健康')||(productName == 'Yijin Health')?'down2':'down1']">
         <div class="down-warp">
-            <template v-if="productName == '义金健康'">
+            <template v-if="(productName == '童熙健康')||(productName == 'Tongxi health')">
                 <img src="../../assets/downLoad/shouji.png" alt="" class="down-image">
                 <div class="content-warp">
                     <div class="content-title">
@@ -12,18 +12,18 @@
                     <div class="content-image-font">{{$t("tongxi.saoma")}}</div>
                 </div>
             </template>
-            <template v-if="productName == '童熙健康'">
+            <template v-if="(productName == '义金健康')||(productName == 'Yijin Health')">
                  <img src="../../assets/downLoad/yijin/product.png" alt="" class="down-image">
-                <div class="content-warp">
+                 <div class="content-warp">
                     <div class="content-title">
-                        {{$t("tongxi.app")}}<br/>{{$t('tongxi.introduce')}}
+                        {{$t("yijin.name")}}<br/>{{$t('yijin.introduce')}}
                     </div>
-                    <div class="content-font">{{$t("tongxi.detaile")}}</div>
+                    <div class="content-font">{{$t("yijin.detaile")}}</div>
                     <div>
                         <img src="../../assets/downLoad/yijin/erwei.png" alt="" class="content-image-small">
                          <img src="../../assets/downLoad/yijin/search.png" alt="" class="content-image2">
                     </div>
-                    <div class="content-image-font">{{$t("tongxi.saoma")}}</div>
+                    <div class="content-image-font">{{$t("yijin.saoma")}}<br/>{{$t("yijin.sousuo")}}</div>
                 </div>
             </template>
         </div>
@@ -87,6 +87,7 @@
       margin-top: 20px;
       font-family: PingFangSC-Regular;
       font-size: 14px;
+      line-height: 21px;
       color: #FFFFFF;
   }
 </style>

@@ -17,19 +17,19 @@
                 <div class="home-font">{{$t('home.baoxian')}}</div>
                 <img src="../../assets/2.png" alt="" >
               </div>
-              <div class="group1"  @click="navTo('项目介绍')">
+              <div class="group1"  @click="navTo('义金健康')">
                    <img src="../../assets/Group2.png" alt="" class="group-image">
-                   <div class="group-font">{{$t('menu.project')}}</div>
+                   <div class="group-font">{{$t('menu.yijin')}}</div>
               </div>
           </div>
           <div class="home-item"> 
               <div class="images-items" @click="navToContent('保险创新')">
-                  <div class="home-font">{{$t('home.jiankang')}}</div>
+                  <div class="home-font">{{$t('home.chuangxin')}}</div>
                   <img src="../../assets/3.png" alt="" >
               </div>
-              <div class="group3" @click="navTo('合作伙伴')">
+              <div class="group3" @click="navTo('关于我们')">
                   <img src="../../assets/Group5.png" alt="" class="group-image">
-                  <div class="group-font">{{$t('menu.partner')}}</div>
+                  <div class="group-font">{{$t('menu.aboutUs')}}</div>
               </div>
           </div>
         </div>
@@ -124,12 +124,12 @@ export default {
     //   console.log(canvjs())  
     // },
     navTo:function(name){
-       if(name == "项目介绍"){
-            this.$router.push({ path:'/pcPage/project' }) 
-        }else if(name == "合作伙伴"){
-            this.$router.push({ path:'/pcPage/panter' })  
+       if(name == "义金健康"){
+            this.$router.push({name:"pcDownLoad",params:{product:"义金健康"}})
+        }else if(name == "关于我们"){
+            this.$router.push({name:"pcAboutUs"})
         }else if(name == "童熙健康"){
-            this.$router.push({ path:'/pcPage/downLoad' })  
+            this.$router.push({name:"pcDownLoad",params:{product:"童熙健康"}})
         }
         bus.$emit("navName",name)
     },

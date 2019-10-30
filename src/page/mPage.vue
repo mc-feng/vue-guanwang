@@ -17,15 +17,38 @@
             <transition name="fade">
                 <div class="nav-warp"  v-show="show">
                     <div class="nav-item"  :class="{'active':0 ==checkindex }" @click="controlNav();toggle(0);jump(0)">{{$t('mnav.home')}}</div>
+                    <div class="nav-item"  :class="{'active':1 ==checkindex }" @click.stop="xianshi(1);toggle(1)">
+                        {{$t('menu.jieshao')}}
+                        <i class="iconfont sword" :class="{'actives':show1}">&#xe6b9;</i>
+                        <transition name="fade2">
+                            <div class="sub-view" v-if="show1">
+                                <div class="sub-item" :class="{'sub-active':0 ==subindex }" @click="toggle2(0);jump(1);controlNav()"><i class="icon"></i>{{$t('home.yiliao')}}</div>
+                                <div class="sub-item" :class="{'sub-active':1 ==subindex }" @click="toggle2(1);jump(2);controlNav()"><i class="icon"></i>{{$t('home.baoxian')}}</div>
+                                <div class="sub-item" :class="{'sub-active':2 ==subindex }" @click="toggle2(2);jump(3);controlNav()"><i class="icon"></i>{{$t('home.chuangxin')}}</div>
+                            </div>
+                        </transition>
+                    </div>
+                    <div class="nav-item"  :class="{'active':2 ==checkindex }" @click="xianshi(2);toggle(2)">
+                        {{$t('menu.downLoad')}}
+                         <i class="iconfont sword" :class="{'actives':show2}">&#xe6b9;</i>
+                         <transition name="fade2">
+                            <div class="sub-view smallHeight" v-if="show2">
+                                <div class="sub-item" :class="{'sub-active':3 ==subindex }" @click="toggle2(3);jump(4);controlNav()"><i class="icon"></i>{{$t('menu.tongxi')}}</div>
+                                <div class="sub-item" :class="{'sub-active':4 ==subindex }" @click="toggle2(4);;jump(5);controlNav()"><i class="icon"></i>{{$t('menu.yijin')}}</div>
+                            </div>
+                        </transition>
+                    </div>
+                    <div class="nav-item"  :class="{'active':3 ==checkindex }" @click="controlNav();toggle(3);jump(6)">{{$t('menu.aboutUs')}}</div>
+                    <!-- <div class="nav-item"  :class="{'active':0 ==checkindex }" @click="controlNav();toggle(0);jump(0)">{{$t('mnav.home')}}</div>
                     <div class="nav-item"  :class="{'active':1 ==checkindex }" @click="controlNav();toggle(1);jump(1)">{{$t('mnav.about')}}</div>
                     <div class="nav-item"  :class="{'active':2 ==checkindex }" @click="controlNav();toggle(2);jump(2)">{{$t('mnav.product')}}</div>
                     <div class="nav-item"  :class="{'active':3 ==checkindex }" @click="controlNav();toggle(3);jump(3)">{{$t('mnav.server')}}</div>
-                    <div class="nav-item"  :class="{'active':4 ==checkindex }" @click="controlNav();toggle(4);jump(4)">{{$t('mnav.linke')}}</div>
+                    <div class="nav-item"  :class="{'active':4 ==checkindex }" @click="controlNav();toggle(4);jump(4)">{{$t('mnav.linke')}}</div> -->
                       <!-- <div class="nav-item" v-for="(item,index) in navs" :key="index" :class="{'active':index ==checkindex }" @click="controlNav();toggle(index);jump(index)">{{item}}</div> -->
                 </div>
             </transition>
         </div>
-        <div class="swiper-inner wrap">
+        <div class="swiper-inner">
             <swiper :options="swiperOption" ref="mySwiper" class="swiper-wrap">
             <swiper-slide class="slide1"></swiper-slide>
             <swiper-slide class="slide2"></swiper-slide>
@@ -33,12 +56,12 @@
             <div class="swiper-pagination "  slot="pagination"></div>
             </swiper> 
         </div>
-        <div class="product-warp wrap">
-            <header class="product-title">{{$t("bottom.chanping")}}</header>
+        <div class="product-warp wrap"><!--医疗-->
+            <header class="product-title"><i class="icon2"></i>{{$t('content.yiliaoTitle')}}</header>
             <div class="product-items">
-                <img src="../assets/mimage/big1.png" alt="">
+                <img src="../assets/mimage/yiliao/yiyuan.png" alt="">
                 <transition name="move">
-                     <div class="product-items-title">{{$t("content.yiliaoHeader1")}}</div>
+                     <div class="product-items-title">{{$t('content.yiliaoHeader1')}}</div>
                 </transition>
                 <transition name="movel">
                      <div class="product-items-content">{{$t("content.yiliaoContent1")}}</div>
@@ -49,7 +72,7 @@
             </div>
             <div class="product-items">
                 <transition name="moveT">
-                <img src="../assets/mimage/big2.png" alt="">
+                <img src="../assets/mimage/yiliao/shoushu.png" alt="">
                 </transition>
                 <transition name="move">
                      <div class="product-items-title">{{$t("content.yiliaoHeader2")}}</div>
@@ -60,7 +83,7 @@
             </div>
             <div class="product-items">
                 <transition name="moveT">
-                  <img src="../assets/mimage/big3.png" alt="">
+                  <img src="../assets/mimage/yiliao/jiedu.png" alt="">
                 </transition>
                 <transition name="move">
                      <div class="product-items-title">{{$t("content.yiliaoHeader3")}}</div>
@@ -71,28 +94,99 @@
             </div>
             <div class="product-items">
                 <transition name="moveT">
-                 <img src="../assets/mimage/big5.png" alt="" class="item-margin">
+                 <img src="../assets/mimage/yiliao/jiankong.png" alt="" class="item-margin">
                 </transition>
                 <transition name="move">
-                     <div class="product-items-title">{{$t("content.baoxianHeader1")}}</div>
+                     <div class="product-items-title">{{$t("content.yiliaoHeader4")}}</div>
                 </transition>
                 <transition name="movel">
-                     <div class="product-items-content">{{$t("content.baoxianContent1")}}</div>
+                     <div class="product-items-content">{{$t("content.yiliaoContent4")}}</div>
+                </transition>
+            </div>
+        </div>
+        <div class="product-warp wrap"><!-- 保险 -->
+            <header class="product-title"><i class="icon2"></i>{{$t('content.baoxianTitle')}}</header>
+            <div class="product-items">
+                <img src="../assets/mimage/baoxian/dangan.png" alt="">
+                <transition name="move">
+                     <div class="product-items-title">{{$t('content.baoxianHeader1')}}</div>
+                </transition>
+                <transition name="movel">
+                     <div class="product-items-content">{{$t('content.baoxianContent1')}}</div>
                 </transition>
             </div>
             <div class="product-items">
                 <transition name="moveT">
-                 <img src="../assets/mimage/big4.png" alt="" class="item-margin">
+                <img src="../assets/mimage/baoxian/piaoju.png" alt="">
                 </transition>
                 <transition name="move">
-                     <div class="product-items-title">{{$t("content.jiankangHeader1")}}</div>
+                     <div class="product-items-title">{{$t('content.baoxianHeader2')}}</div>
                 </transition>
                 <transition name="movel">
-                     <div class="product-items-content">{{$t("content.jiankangContent1")}}</div>
+                     <div class="product-items-content">{{$t('content.baoxianContent2')}}</div>
+                </transition>
+            </div>
+            <div class="product-items">
+                <transition name="moveT">
+                  <img src="../assets/mimage/baoxian/hebao.png" alt="">
+                </transition>
+                <transition name="move">
+                     <div class="product-items-title">{{$t('content.baoxianHeader3')}}</div>
+                </transition>
+                <transition name="movel">
+                     <div class="product-items-content">{{$t('content.baoxianContent3')}}</div>
                 </transition>
             </div>
         </div>
-        <div class="service-warp wrap">
+        <div class="product-warp wrap"> <!-- 创新 -->
+            <header class="product-title"><i class="icon2"></i>{{$t('content.chuangxinTitle')}}</header>
+            <div class="product-items">
+                <img src="../assets/mimage/chuanxin/fangai.png" alt="">
+                <transition name="move">
+                     <div class="product-items-title">{{$t('content.chuangxinHeader1')}}</div>
+                </transition>
+                <transition name="movel">
+                     <div class="product-items-content">{{$t('content.chuangxinContent1')}}</div>
+                </transition>
+                <!-- <img src="../assets/mimage/big1.png" alt="">
+                <div class="product-items-title" :class="{'company_name':anmintion[0]}">报告解读</div>
+                <div class="product-items-content" :class="{'company_introduce':anmintion[0]}">该系统由两部分组成，一是基于ORC识别技术，实现医疗化验单、报告单、体检报告的文字智能识别与归类，快速为用户建立个人电子病历和健康档案；二是结合医疗数据，提供化验单的项目说明和解释，帮助用户对自身指标的认识。</div> -->
+            </div>
+            <div class="product-items">
+                <transition name="moveT">
+                <img src="../assets/mimage/chuanxin/chijun.png" alt="">
+                </transition>
+                <transition name="move">
+                     <div class="product-items-title">{{$t('content.chuangxinHeader2')}}</div>
+                </transition>
+                <transition name="movel">
+                     <div class="product-items-content">{{$t('content.chuangxinContent2')}}</div>
+                </transition>
+            </div>
+            <div class="product-items">
+                <transition name="moveT">
+                  <img src="../assets/mimage/chuanxin/cuolou.png" alt="">
+                </transition>
+                <transition name="move">
+                     <div class="product-items-title">{{$t('content.chuangxinHeader3')}}</div>
+                </transition>
+                <transition name="movel">
+                     <div class="product-items-content">{{$t('content.chuangxinContent3')}}</div>
+                </transition>
+            </div>
+            <div class="product-items">
+                <transition name="moveT">
+                 <img src="../assets/mimage/chuanxin/wuian.png" alt="" class="item-margin">
+                </transition>
+                <transition name="move">
+                     <div class="product-items-title">{{$t('content.chuangxinHeader4')}}</div>
+                </transition>
+                <transition name="movel">
+                     <div class="product-items-content">{{$t('content.chuangxinContent4')}}</div>
+                </transition>
+            </div>
+        </div>
+        <!-- <div class="service-warp wrap">
             <div class="service-title">{{$t("mpage.fuwei")}}</div>
             <div class="swiper-inner2">
                 <swiper :options="swiperOption2" class="swiper-wrap2">
@@ -119,8 +213,44 @@
                 <div class="swiper-pagination "  slot="pagination"></div>
                 </swiper> 
             </div>
+        </div> -->
+        <div class="app-warp wrap">
+            <!-- <img src="../assets/mimage/app-img.png" alt=""> -->
+            <div class="app-content-warp">
+                <div class="app-title">{{$t("tongxi.app")}}</div>
+                <div class="app-title">{{$t("tongxi.introduce")}}</div>
+                <div class="app-content">{{$t("tongxi.detaile")}}</div>
+                <div class="app-buttun">
+                    <div class="down-buttun"  @click="linke('https://fir.im/mjbk')">{{$t("mnav.download1")}}</div>
+                    <div class="down-buttun" @click="linke('https://itunes.apple.com/cn/app/id1417071605?mt=8')">{{$t("mnav.download2")}}</div>
+                </div>
+                <!-- <img src="../assets/mimage/tongxierwei.png" alt="" class="app-erwei">
+                <div class="app-xiazai">{{$t("tongxi.saoma")}}</div> -->
+            </div>
         </div>
-        <div class="panter-warp">
+        <div class="app-warp2 wrap">
+            <!-- <img src="../assets/mimage/app-img.png" alt=""> -->
+            <div class="app-content-warp">
+                <div class="app-title">{{$t("yijin.name")}}</div>
+                <div class="app-title">{{$t("yijin.introduce")}}</div>
+                <div class="app-content">{{$t("yijin.detaile")}}</div>
+                <div class="app-buttun">
+                    <img src="../assets/mimage/yijinerwei.png" alt="" class="app2-image">
+                    <div>
+                        <div  class="app2-button">{{$t("mnav.guanzhu")}}</div>
+                        <div  class="app2-button">{{$t("mnav.download2")}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-us wrap">
+            <header class="about-title"><i class="icon2"></i>{{$t("menu.aboutUs")}}</header>
+            <img src="../assets/logo2.png" alt="" class="about-image">
+            <div class="about-content">
+                {{$t("aboutUs.introduce")}}
+            </div>
+        </div>
+        <div class="panter-warp wrap">
            <div class="panter-title">{{$t("partner.title")}}</div>
             <swiper :options="swiperOption3" class="panter-contion">
                 <swiper-slide class="panter-item">
@@ -276,21 +406,7 @@
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </div>
-        <div class="app-warp wrap">
-            <!-- <img src="../assets/mimage/app-img.png" alt=""> -->
-            <div class="app-content-warp">
-                <div class="app-title">{{$t("tongxi.app")}}</div>
-                <div class="app-title">{{$t("tongxi.introduce")}}</div>
-                <div class="app-content">{{$t("tongxi.detaile")}}</div>
-                <div class="app-buttun">
-                    <div class="down-buttun"  @click="linke('https://fir.im/mjbk')">{{$t("mnav.download1")}}</div>
-                    <div class="down-buttun" @click="linke('https://itunes.apple.com/cn/app/id1417071605?mt=8')">{{$t("mnav.download2")}}</div>
-                </div>
-                <!-- <img src="../assets/mimage/tongxierwei.png" alt="" class="app-erwei">
-                <div class="app-xiazai">{{$t("tongxi.saoma")}}</div> -->
-            </div>
-        </div>
-        <div class="bottom-warp">
+        <div class="bottom-warp wrap">
             <div class="bottom-header">{{$t("mpage.lianxi")}}</div>
             <div class="link-our">
                 <div>{{$t("mpage.kefu")}}</div>
@@ -420,16 +536,65 @@
     font-size: 28px;
     color: #fff;
     line-height: 80px;
+    position: relative;
   }
   .active{
         color: #55CCDD
   }
+  .sword{
+        position: absolute;
+        font-size: 12px;
+        color: #FFFFFF;
+        margin-left: 10px;
+    }
+   .fade2-leave-active,.fade-enter-active{
+            transition: height .5s ease-in .1s; 
+   }
+   .fade2-leave-active,.fade-enter{
+            height:0px !important;
+   }
   .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
-}
-.fade-enter, .fade-leave-to{
-  opacity: 0;
-}
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to{
+    opacity: 0;
+   }
+   .sub-view{
+       height: 240px;
+       background:  rgba(3,15,34,0.54);
+       padding-bottom: 5px;
+   }
+   .smallHeight{
+       height: 150px;
+   }
+   .sub-item{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       padding: 0 14px 0 14px;
+       font-family: PingFangSC-Regular;
+       font-size: 22px;
+       color: #ffffff;
+       letter-spacing: 0;
+   }
+   .sub-active{
+       color: #55CCDD;
+   }
+   .icon{
+       display: inline-block;
+       width: 16px;
+       height: 4px;
+       background: #55CCDD;
+       margin-right: 14px;
+   }
+   .icon2{
+       display: inline-block;
+       width: 30px;
+       height: 10px;
+       background: #55CCDD;
+       margin-right: 14px;
+       margin-bottom: 10px;
+   }
   /* .mybox-leave-active,.mybox-enter-active{
             transition:  all 0.3s ease; 
     } */
@@ -573,17 +738,79 @@
      flex-flow: row nowrap;
      position: relative;
  }
+ .app-warp2{
+     min-height: 1270px;
+     width: 100%;
+     background-image: url(../assets/mimage/mbackground2.png);
+     background-size: cover;
+     padding:114px 0 0 80px;
+     display: flex;
+     flex-flow: row nowrap;
+     position: relative;
+ }
+ .about-us{
+    width: 100%;
+    background-image: url(../assets/mimage/mbackground3.png);
+    min-height: 700px;
+    background-size: cover;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    position: relative;
+    color: #fff
+ }
+ .about-title{
+    font-family: PingFangSC-Regular;
+    font-size: 40px;
+    color: #fff;
+    letter-spacing: 0;
+    text-align: center;
+    height: 56px;
+    line-height: 56px;
+    margin-bottom: 34px;
+    margin-top:70px;
+ }
+ .about-image{
+     width: 114px;
+     height: 114px;
+     margin-top: 46px;
+ }
+ .about-content{
+    font-family: PingFangSC-Regular;
+    font-size: 24px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 48px;
+    margin-top: 30px;
+    width: 580px;
+    margin-bottom: 50px;
+ }
  .app-content-warp{
     margin-top: 860px;
     margin-bottom: 60px;
  }
  .app-buttun{
-     height: 70px;
      margin-top: 40px;
      display: flex;
      flex-flow: row nowrap;
      justify-content: space-between;
      width: 480px;
+ }
+ .app2-image{
+     width: 152px;
+     height: 152px;
+     margin-right: 44px;
+ }
+ .app2-button{
+     width: 222px;
+     height: 70px;
+     margin-bottom: 10px;
+     text-align: center;
+     line-height: 70px;
+     color: #fff;
+     font-size: 28px;
+     border:2px solid #ffffff;
+     border-radius: 35px;
  }
  .down-buttun{
    width: 220px;
@@ -645,6 +872,11 @@
      margin-top: 16px;
      margin-left: -6px
  }
+ .actives{
+     transform:rotate(-180deg);
+     transition:all .5s ease-in .1s;
+     color: #55CCDD
+ }
 </style>
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper' 
@@ -664,6 +896,7 @@ export default {
             show: false,
             // navs:[this.$t('mnav.home'),this.$t('mnav.about'),this.$t('mnav.product'),this.$t('mnav.server'),this.$t('mnav.linke')],
             checkindex:0,
+            subindex:null,
             swiperOption: {
                 spaceBetween: 30,
                 effect: 'fade',
@@ -697,13 +930,22 @@ export default {
                     el: '.swiper-pagination',
                     clickable: true,
                 }
-            }
+            },
+            show1:false,
+            show2:false
         }
     },
     mounted(){
          this.WXConfig.wxShowMenu();
     },
     methods:{
+        xianshi(index){
+            if(index==1){
+              this.show1 =!this.show1
+            }else{
+              this.show2 =!this.show2
+            }
+        },
         // 下载地址跳转
         linke(res){
             console.log(res)
@@ -726,7 +968,9 @@ export default {
         for(let i = 0,len = jump.length;i< len;i++){
             top.push(jump[i].offsetTop)
         }
+        console.log(top)
         let topArr = [0].concat(top)
+        console.log(topArr )
         let total = topArr[index]
          console.log(total)
         let distance = document.documentElement.scrollTop || document.body.scrollTop
@@ -764,6 +1008,9 @@ export default {
      },
      toggle(index){
         this.checkindex = index
+      },
+     toggle2(index){
+        this.subindex = index
       }
     }
 }
