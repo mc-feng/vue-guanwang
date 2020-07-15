@@ -14,7 +14,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.interceptors.request.use(
     (request)=>{
              startLoading()
-            const host = 'http://www.tonticn.cn:8089'
+            const host = 'http://www.tonticn.cn:8080'
             if (!/^(http|\/\/)/.test(request.url)) {
                 request.url = host + request.url;
             }//设置默认host
