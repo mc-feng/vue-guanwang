@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main">
       <pro-nav background="background:#130737"></pro-nav>
       <router-view/>
       <my-bottom class="bottom" color="color:#ffffff"></my-bottom>
@@ -7,7 +7,8 @@
 </template>
 <style scoped>
   .main{
-      height: 1005px;
+      width: 100%;
+      background: #130737
   }
   .bottom{
       background: #17375C !important;

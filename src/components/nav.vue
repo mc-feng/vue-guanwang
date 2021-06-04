@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="warp">
-            <img src="../assets/logo.png" alt="loge">
+            <img src="../assets/logo.png" alt="loge" style="width:82px;height:58px">
             <div class="nav">
                 <div class="nav-item"  @click="selected($t('menu.chanping'))" :class="{active : active == '产品体验入口'|| active == 'Product experience portal'}">
                     {{$t('menu.chanping')}}
@@ -25,11 +25,15 @@
                     <transition name="fade">
                         <div class="sub-view showHeight" v-if="show2" :class="{english2 :active == 'Download'}">
                             <div class="sub-item" @click.stop="selected2($t('menu.yijin'))" :class="{active : subActive == '义金健康'||subActive == 'Yijin Health'}"><i class="iconfont fontSet" :class="{actives : subActive == '义金健康'}">&#xe60b;</i>{{$t('menu.yijin')}}</div>
-                            <div class="sub-item" @click.stop="selected2($t('menu.tongxi'))" :class="{active : subActive == '童熙健康'||subActive == 'Tongxi health'}"><i class="iconfont fontSet" :class="{actives : subActive == '童熙健康'}">&#xe602;</i>{{$t('menu.tongxi')}}</div>
+                            <!-- <div class="sub-item" @click.stop="selected2($t('menu.tongxi'))" :class="{active : subActive == '童熙健康'||subActive == 'Tongxi health'}"><i class="iconfont fontSet" :class="{actives : subActive == '童熙健康'}">&#xe602;</i>{{$t('menu.tongxi')}}</div> -->
                         </div>
                     </transition>
                 </div>
                 <div class="nav-item"  @click="selected($t('menu.partner'))" :class="{active : active == '合作伙伴'|| active == 'Partner'}">{{$t('menu.partner')}}</div>
+                <div class="nav-item"  @click="selected($t('menu.xinWen'))" :class="{active : active == $t('menu.xinWen')}">
+                     {{$t('menu.xinWen')}}
+                    <div class="badge">NEW</div>
+                </div>
                 <div class="nav-item"  @click="selected($t('menu.aboutUs'))" :class="{active : active == '关于我们'|| active == 'About'}">{{$t('menu.aboutUs')}}</div>
                 <!-- <div class="nav-item"  @click="selected($t('menu.project'))" :class="{active : active == '项目介绍'|| active == 'Project Introduction'}">{{$t('menu.project')}}</div>
                 <div class="nav-item"  @click="selected($t('menu.partner'))" :class="{active : active == '合作伙伴'|| active == 'Partner'}">{{$t('menu.partner')}}</div>
@@ -53,7 +57,7 @@
        margin:0 auto;
        display: flex;
        flex-flow: row nowrap;
-       justify-content: space-between;
+       justify-content: space-around;
        align-items: center;
        background: transparent;
        position: absolute;
@@ -113,7 +117,7 @@
         overflow: hidden;
     }
     .showHeight{
-        height: 110px;
+        height: 40px;
     }
     .sub-item{
         margin-top: 21px;
@@ -184,6 +188,8 @@ export default {
                 }else{ 
                  this.$router.push('/product')
                 }
+            }else if(name==this.$t("menu.xinWen")){
+                window.open("https://mp.weixin.qq.com/mp/homepage?__biz=MzI3Mjc0ODM3NA==&hid=1&sn=ad51281d0727b02c16ae0c4ed8413525&scene=1&devicetype=Windows+10+x64&version=62090070&lang=zh_CN&nettype=ctnet&ascene=1&session_us=gh_dda34eba2834&pass_ticket=bmW8xG4CNhpNDnOV%2BU7zchLD8e81Mz0SPvs%2FNBM4IhKC1TLN1ztA9NpUy70QQ4eh&wx_header=1&uin=NzU3MjIzMTAz&key=f1b23c266c112109cdb2731bedfcef63ba77e1490f9bdfaf2835867b94417145f17e87306b2053d7c59b77bfbbdcde69b6c183a4bd32b38b485d03064945f92a0c956797e492e507e075839556888ad5");
             }
             this.active = name;
             if(name==this.$t("menu.jieshao")){

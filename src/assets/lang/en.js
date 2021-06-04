@@ -8,7 +8,8 @@ module.exports = {
     aboutUs:"About",
     yijin:"Yijin Health",
     jieshao:"Products",
-    downLoad:"Download"
+    downLoad:"Download",
+    xinWen:"News Center"
   }, 
   home:{
     yiliao:"Smart medical",
@@ -22,7 +23,8 @@ module.exports = {
    chuanzhen:"Fax: (0571) 89915722",
    youxiang:"Email: tea@tonti.cn",
    lianxi:"Address:15th Floor, Zhongwei Electronic Building, No. 1819 Xixing Road, Binjiang District, Hangzhou",
-   kefu:"Customer Service:"
+   kefu:"Customer Service:",
+   wangbie:"Network record number:"
   },
   project:{
     title:"Project Introduction",
@@ -45,9 +47,9 @@ module.exports = {
     saoma:"Scan QR code to download Tong Xi Health App"
   },
   yijin:{
-    name:"Yijin Health",
+    name:"Yijin Health APP",
     introduce:"Indispensable health management tools",
-    detaile:"The official application of Yijin (Hangzhou) Health Technology Co., Ltd. provides you with a professional report interpretation function, which can generate health reports with one click.",
+    detaile:"The official application of Yijin (Hangzhou) Technology Co., Ltd. provides health care for you and your family in all aspects. Real time view of body temperature data and history, escort for health.",
     saoma:"Scan the QR code and pay attention to the “Yi Jin Health” public number.",
     sousuo:"App Store Search '义金健康' Download APP（Currently only supports Chinese search）"
   },
@@ -64,8 +66,8 @@ module.exports = {
     yiliaoContent2:"The function of the system covers pre-operative education, surgical tracking and post-operative guidance.The system can deliver content through text/image/video, which helps patients and their families to understand the operation situation in an all-round way, know the risk of surgery, and effectively cooperate with medical staff for health education. For the medical staff, the information system can be used to develop pre-operative psychological assessment, patient feedback, and course learning dynamics for the patient.",
     yiliaoHeader3:"Interpretation of laboratory test",
     yiliaoContent3:"The system consists of two parts: one is based on OCR recognition technology to realize the intelligent identification and classification of medical test forms, report forms, and physical examination reports, and quickly establish personal electronic medical records and health files for users. Another part is to provide a description and explanation of the project with the medical data to help users understand their own indicators.",
-    yiliaoHeader4:"Intelligent monitoring system--body temperature monitoring",
-    yiliaoContent4:"The system consists of monitoring platform, monitoring equipment, and IoT acquisition hardware. It can collect patient temperature data in real time for 24 hours, establish body temperature trend record, and prompt high temperature patients, which can effectively reduce the workload of nursing staff inspection. The care of the monitoring of body temperature, combined with insurance products, provides a more comprehensive guarantee for inpatients.",
+    yiliaoHeader4:"Intelligent monitoring system--Multi parameter monitoring",
+    yiliaoContent4:"The newly launched v2.0 version system has added parameters such as HR, RR, oxygen, real-time ECG and so on, while retaining the original basic functions. It can continuously and real-time collect the patient's physical sign data for 24 hours, establish the sign trend record, and prompt the abnormal patients, so as to realize the monitoring of all aspects of vital signs. In the operation interface is more simple and convenient, the navigation bar realizes the one key switch of the interface, the use of equipment, the replacement of beds, etc., which reduces the number of medical staff in daily care and inspection. Improve active care and intervention; non-contact detection to help reduce the risk of cross infection.",
     baoxianTitle:"InsurTech / Insurance technology",
     baoxianHeader1:"Health file filing",
     baoxianContent1:"The health files of insurance company users are often stored in pictures and papers, and then archived and established by means of manual entry. Yijin Health's pioneering health archives system supports the rapid establishment and archiving of test sheets, medical reports, pathology reports, and image reports, helping insurance companies to provide users with more detailed insurance and health services.",

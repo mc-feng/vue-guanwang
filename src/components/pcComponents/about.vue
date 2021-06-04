@@ -59,6 +59,9 @@
   .content-main{
       margin-left: 25px;
       margin-top: 87px;
+      background-color: rgba(44,74,119,0.6); 
+      padding: 20px;
+      border-radius: 20px
   }
   .content-main-header{
       font-family: PingFangSC-Regular;
@@ -67,7 +70,7 @@
       letter-spacing: 0;
       line-height: 50px;
   }
-  .content-main-controduct{
+  .content-main .content-main-controduct{
       width: 702px;
       font-size: 18px;
       margin-top: 13px;

@@ -1,8 +1,10 @@
 <template>
     <div class="pro-nav" :style="background">
         <div class="warp">
-            <img src="../../assets/logo.png" alt="loge" @click="select()" class="warp-image">
-            <div class="tiyan">产品体验中心</div>
+            <div class="nav-left">
+                <img src="../../assets/logo.png" alt="loge" @click="select()" class="warp-image" style="width:82px;height:58px;marginLeft:77px">
+                <div class="tiyan">产品体验中心</div>
+            </div>
             <div class="nav-warp">
                 <div class="nav-item"  @click="selectNav('化验单识别')" :class="{active : active == '化验单识别'}">化验单识别</div>
                 <div class="nav-item" @click="selectNav('病理报告单识别')" :class="{active : active == '病理报告单识别'}">病理报告单识别</div>
@@ -24,10 +26,12 @@
 <style scoped>
   .warp{
       height: 95px;
-      width: 1300px;
+      width: 1200px;
       margin:0 auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      position: relative;
   }
   .warp-image{
       cursor: pointer;
@@ -39,8 +43,11 @@
       letter-spacing: 0;
       margin-left: 31px
   }
+  .nav-left{
+      display: flex;
+      align-items: center;
+  }
   .nav-warp{
-      margin-left: 181px;
       display: flex;
   }
   .nav-item{
@@ -57,7 +64,6 @@
      color: #37B2DB;
   }
   .touxiang{
-      margin-left: 260px;
       display: flex;
       cursor: pointer;
       position: relative;
@@ -71,7 +77,7 @@
       font-size: 14px;
       color: #FFFFFF;
       margin-left: 15px;
-      max-width: 60px;
+      max-width: 200px;
       line-height: 25px;
   }
   .tx-gr{

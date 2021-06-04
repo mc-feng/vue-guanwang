@@ -67,13 +67,15 @@
 </template>
 <style scoped>
  .loge{
+     width: 1200px;
      height: 960px;
-     background: #130737
+     background: #130737;
+     margin: auto;
+     position: relative;
  }
  .loge-image{
     widows: 983px;
     height: 617px;
-    margin-left: 175px;
     margin-top: 100px;
  }
  .warp{
@@ -82,8 +84,8 @@
      box-shadow: 0 7px 11px 0 rgba(224,224,224,0.50);
      border-radius: 8px;
      position: absolute;
-     top: 259px;
-     left: 1077px;
+     top: 170px;
+     right: 23px;
      padding-bottom: 46px;
  }
  div>>>.ivu-tabs-nav-container{

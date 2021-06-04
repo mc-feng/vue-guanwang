@@ -53,7 +53,7 @@ export default {
                     wx.onMenuShareTimeline({
                     title: '佟蒂--大健康科技保险服务商', // 分享标题
                     link: getMsg.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                    imgUrl: 'http://www.yijinhealth.com/JavaWebApp/guanwang/index.jpg', // 分享图标
+                    imgUrl: 'http://www.yijinhealth.com:8080/JavaWebApp/guanwang/index.jpg', // 分享图标
                     success: function () {
                         // 用户确认分享后执行的回调函数
                     },
@@ -65,7 +65,7 @@ export default {
                     title: '佟蒂--大健康科技保险服务商', // 分享标题
                     desc: '保险科技，人工智能，家庭健康全生命周期保障', // 分享描述
                     link: getMsg.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                    imgUrl: 'http://www.yijinhealth.com/JavaWebApp/guanwang/index.jpg', // 分享图标
+                    imgUrl: 'http://www.yijinhealth.com:8080/JavaWebApp/guanwang/index.jpg', // 分享图标
                     type: '', // 分享类型,music、video或link，不填默认为link
                     dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                     success: function () {

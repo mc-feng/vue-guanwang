@@ -8,20 +8,20 @@
             </div>
             <div class="content-items">
                 <div class="items-left">
+                    <div class="items-title">{{$t('content.yiliaoHeader4')}}</div>
+                    <div class="items-jieshao">{{$t('content.yiliaoContent4')}}</div>
+                </div>
+                <div class="items-right">
+                    <img src="../../assets/content/yiliao/jiankong.png" alt="" class="items-image">
+                </div>
+            </div>
+            <div class="content-items">
+                <div class="items-left">
                     <img src="../../assets/content/yiliao/yiyuan.png" alt="" class="items-image">
                 </div>
                 <div class="items-right">
                     <div class="items-title">{{$t('content.yiliaoHeader1')}}</div>
                     <div class="items-jieshao">{{$t('content.yiliaoContent1')}}</div>
-                </div>
-            </div>
-            <div class="content-items">
-                <div class="items-left">
-                    <div class="items-title">{{$t('content.yiliaoHeader2')}}</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent2')}}</div>
-                </div>
-                <div class="items-right">
-                    <img src="../../assets/content/yiliao/shoushu.png" alt="" class="items-image">
                 </div>
             </div>
             <div class="content-items">
@@ -35,11 +35,11 @@
             </div>
             <div class="content-items">
                 <div class="items-left">
-                    <div class="items-title">{{$t('content.yiliaoHeader4')}}</div>
-                    <div class="items-jieshao">{{$t('content.yiliaoContent4')}}</div>
+                    <div class="items-title">{{$t('content.yiliaoHeader2')}}</div>
+                    <div class="items-jieshao">{{$t('content.yiliaoContent2')}}</div>
                 </div>
                 <div class="items-right">
-                    <img src="../../assets/content/yiliao/jiankong.png" alt="" class="items-image">
+                    <img src="../../assets/content/yiliao/shoushu.png" alt="" class="items-image">
                 </div>
             </div>
         </template>

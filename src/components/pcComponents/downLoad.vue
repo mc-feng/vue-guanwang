@@ -1,18 +1,18 @@
 <template>
     <div :class="[(productName == '义金健康')||(productName == 'Yijin Health')?'down2':'down1']">
         <div class="down-warp">
-            <template v-if="(productName == '童熙健康')||(productName == 'Tongxi health')">
-                <img src="../../assets/downLoad/shouji.png" alt="" class="down-image">
+            <template v-if="(productName == '义金健康')||(productName == 'Yijin Health')">
+                <img src="../../assets/downLoad/yijin/product.png" alt="" class="down-image">
                 <div class="content-warp">
                     <div class="content-title">
-                        {{$t("tongxi.app")}}<br/>{{$t('tongxi.introduce')}}
+                        {{$t("yijin.name")}}<br/>{{$t('yijin.introduce')}}
                     </div>
-                    <div class="content-font">{{$t("tongxi.detaile")}}</div>
+                    <div class="content-font">{{$t("yijin.detaile")}}</div>
                     <img src="../../assets/downLoad/erwei.png" alt="" class="content-image">
-                    <div class="content-image-font">{{$t("tongxi.saoma")}}</div>
+                    <div class="content-image-font">{{$t("yijin.sousuo")}}</div>
                 </div>
             </template>
-            <template v-if="(productName == '义金健康')||(productName == 'Yijin Health')">
+            <!-- <template v-if="(productName == '义金健康')||(productName == 'Yijin Health')">
                  <img src="../../assets/downLoad/yijin/product.png" alt="" class="down-image">
                  <div class="content-warp">
                     <div class="content-title">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="content-image-font">{{$t("yijin.saoma")}}<br/>{{$t("yijin.sousuo")}}</div>
                 </div>
-            </template>
+            </template> -->
         </div>
     </div>
 </template>
@@ -46,6 +46,7 @@
       padding: 240px 0 160px;
       display: flex;
       flex-flow: row nowrap;
+      align-items: center;
   }
   .down-image{
       width: 240px;
@@ -59,7 +60,6 @@
       font-size: 36px;
       color: #FFFFFF;
       font-weight: 100;
-      margin-top: 80px
   }
   .content-font{
       width: 400px;

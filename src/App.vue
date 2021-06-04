@@ -9,6 +9,9 @@ import Cookies from 'js-cookie'
 export default {
   name: 'App',
   mounted (){
+      console.log(window.location.href)
+      console.log(window.location.href.split("#"))
+      console.log()
       if (this._isMobile()) {
         this.$router.replace('/mPage');
       } else {
@@ -17,7 +20,11 @@ export default {
         if(cookies){  
          this.$router.push(`/product/report/${account}`)//防止刷新保留当前页面
         }else{ 
-         this.$router.replace('/pcPage');
+          if(window.location.href.split("#")[1]=="/pcPage/downLoad/%E4%B9%89%E9%87%91%E5%81%A5%E5%BA%B7"){
+            this.$router.push("/pcPage/downLoad/义金健康")
+          }else{
+            this.$router.replace('/pcPage');
+          }
         }
       }
     },
